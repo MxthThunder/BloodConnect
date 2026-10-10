@@ -215,10 +215,10 @@ const DashboardLayout = () => {
               </div>
               <div className="hidden lg:block text-left">
                 <p className="text-xs font-bold text-slate-800 leading-none">
-                  {user?.first_name || user?.email?.split('@')[0]}
+                  {user?.first_name ? `${user.first_name} ${user.last_name || ''}`.trim() : (user?.username || user?.email?.split('@')[0])}
                 </p>
                 <p className="text-[10px] text-slate-400 mt-0.5 leading-none">
-                  {user?.city || 'Bengaluru'}
+                  {user?.locality ? `${user.locality}, Chennai` : 'Chennai, Tamil Nadu'}
                 </p>
               </div>
             </div>
@@ -226,7 +226,7 @@ const DashboardLayout = () => {
         </header>
 
         {/* Page body */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-6">
+        <main className="flex-1 p-4 sm:p-6 lg:p-7 max-w-[1650px] mx-auto w-full space-y-6">
           <Outlet />
         </main>
       </div>

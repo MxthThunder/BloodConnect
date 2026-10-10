@@ -87,7 +87,7 @@ const LowStockAlertsPage = () => {
                 </div>
 
                 <div className="pt-3 border-t border-slate-100 text-[11px] text-amber-900 bg-amber-50/60 p-3 rounded-xl">
-                  <strong>Recommended Clinical Action:</strong> Initiate targeted voluntary donor broadcast for group {stock.blood_group} within {stock.bank_city || 'Bengaluru'}.
+                  <strong>Recommended Clinical Action:</strong> Initiate targeted voluntary donor broadcast for group {stock.blood_group} within {stock.bank_city || 'Chennai'}.
                 </div>
               </div>
             );

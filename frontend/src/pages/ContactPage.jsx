@@ -42,15 +42,22 @@ const ContactPage = () => {
               <div className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
                 <Building2 className="w-4 h-4 text-slate-600 shrink-0 mt-0.5" />
                 <div>
-                  <div className="font-bold text-slate-900">Victoria Hospital Blood Bank</div>
-                  <div className="text-slate-600">+91 80 2670 1150 &bull; Fort, Bengaluru</div>
+                  <div className="font-bold text-slate-900">Rajiv Gandhi Govt General Hospital Blood Centre</div>
+                  <div className="text-slate-600">+91 44 2530 5000 &bull; Park Town, Chennai</div>
                 </div>
               </div>
               <div className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
                 <Building2 className="w-4 h-4 text-slate-600 shrink-0 mt-0.5" />
                 <div>
-                  <div className="font-bold text-slate-900">Manipal Hospital Blood Centre</div>
-                  <div className="text-slate-600">+91 80 2502 4444 &bull; HAL Airport Road</div>
+                  <div className="font-bold text-slate-900">Apollo Hospitals Regional Blood Bank</div>
+                  <div className="text-slate-600">+91 44 2829 0200 &bull; Greams Road, Nungambakkam, Chennai</div>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+                <Building2 className="w-4 h-4 text-slate-600 shrink-0 mt-0.5" />
+                <div>
+                  <div className="font-bold text-slate-900">Fortis Malar Hospital Blood Centre</div>
+                  <div className="text-slate-600">+91 44 4289 2222 &bull; Gandhi Nagar, Adyar, Chennai</div>
                 </div>
               </div>
             </div>

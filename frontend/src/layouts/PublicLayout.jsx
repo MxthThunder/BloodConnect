@@ -29,21 +29,21 @@ const PublicLayout = () => {
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 antialiased">
       {/* Top emergency notice banner */}
       <div className="bg-gradient-to-r from-red-700 via-red-600 to-rose-700 text-white text-xs py-2 px-4">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1 text-center sm:text-left">
+        <div className="max-w-[1650px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-1 text-center sm:text-left">
           <div className="flex items-center gap-2 font-medium">
             <span className="w-2 h-2 rounded-full bg-white animate-ping" />
-            <span>Emergency Blood Coordination Network — Bengaluru Academic Prototype</span>
+            <span>Emergency Blood Coordination Network — Chennai, Tamil Nadu Prototype</span>
           </div>
           <div className="flex items-center gap-4 text-[11px] opacity-90">
-            <span>24/7 Helpline: 108 / +91 80 2670 1150</span>
-            <span className="hidden md:inline">| College Design Thinking Project</span>
+            <span>24/7 Helpline: 108 / +91 44 2530 5000</span>
+            <span className="hidden md:inline">| College Design Thinking Project (Asia/Kolkata)</span>
           </div>
         </div>
       </div>
 
       {/* Main navigation header */}
       <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+        <div className="max-w-[1650px] mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
           <Logo size="md" />
 
           {/* Desktop navigation links */}
@@ -161,7 +161,7 @@ const PublicLayout = () => {
 
       {/* Footer */}
       <footer className="bg-slate-900 text-slate-300 pt-14 pb-8 border-t border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        <div className="max-w-[1650px] mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="md:col-span-2 space-y-4">
               <div className="flex items-center gap-2">
@@ -173,11 +173,12 @@ const PublicLayout = () => {
                 </span>
               </div>
               <p className="text-sm text-slate-400 max-w-md leading-relaxed">
-                Emergency Blood Donor Matching and Monitoring System. A centralized digital platform developed as a Design Thinking engineering project to alleviate critical blood shortages through verified alerts and donor coordination.
+                Emergency Blood Donor Matching and Monitoring System (Chennai, Tamil Nadu). A centralized digital platform developed as a Design Thinking engineering project to alleviate critical blood shortages through verified alerts and donor coordination.
               </p>
               <div className="text-xs text-slate-500 space-y-1">
                 <p><strong>Design Thinking Team:</strong> CS Engineering Students (Batch 2026)</p>
-                <p><strong>Evaluation Scope:</strong> Academic prototype with synthetic verified records.</p>
+                <p><strong>Primary Region:</strong> Chennai, Tamil Nadu, India (Asia/Kolkata)</p>
+                <p><strong>Evaluation Scope:</strong> Academic prototype with synthetic verified records across 15 Chennai localities.</p>
               </div>
             </div>
 
@@ -201,15 +202,15 @@ const PublicLayout = () => {
               <ul className="space-y-2.5 text-xs text-slate-400">
                 <li className="flex items-center gap-2 text-slate-300">
                   <PhoneCall className="w-4 h-4 text-red-400 shrink-0" />
-                  <span>Karnataka Blood Helpline: 104 / 108</span>
+                  <span>Tamil Nadu Blood Helpline: 104 / 108</span>
                 </li>
                 <li className="flex items-center gap-2 text-slate-300">
                   <Building2 className="w-4 h-4 text-red-400 shrink-0" />
-                  <span>Victoria Hospital: +91 80 2670 1150</span>
+                  <span>Rajiv Gandhi General: +91 44 2530 5000</span>
                 </li>
                 <li className="flex items-center gap-2 text-slate-300">
                   <Building2 className="w-4 h-4 text-red-400 shrink-0" />
-                  <span>Manipal Central Bank: +91 80 2502 4444</span>
+                  <span>Apollo Greams Road: +91 44 2829 0200</span>
                 </li>
               </ul>
               <div className="mt-4 p-3 rounded-lg bg-slate-800/80 border border-slate-700/60 text-[11px] text-amber-300 flex items-start gap-2">
@@ -220,10 +221,10 @@ const PublicLayout = () => {
           </div>
 
           <div className="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-            <p>&copy; {new Date().getFullYear()} BloodConnect Project Team. Built for Design Thinking Evaluation.</p>
+            <p>&copy; {new Date().getFullYear()} BloodConnect Project Team (Chennai). Built for Design Thinking Evaluation.</p>
             <div className="flex items-center gap-4">
               <span>ABO/Rh Blood Matching Protocol</span>
-              <span>OpenStreetMap Integration</span>
+              <span>OpenStreetMap / Leaflet (Chennai)</span>
               <span>Django REST + React</span>
             </div>
           </div>

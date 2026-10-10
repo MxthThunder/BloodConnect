@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import apiClient from '../../api/client';
 import StatusBadge from '../../components/StatusBadge';
 import BloodGroupBadge from '../../components/BloodGroupBadge';
+import { CHENNAI_LOCALITIES, formatIndianDate } from '../../constants/chennaiData';
 import {
   FileText,
   Search,
@@ -20,6 +21,7 @@ const RequestManagementPage = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
+  const [localityFilter, setLocalityFilter] = useState('');
 
   const fetchRequests = async () => {
     setLoading(true);
@@ -63,9 +65,11 @@ const RequestManagementPage = () => {
     const matchesSearch =
       r.reference_number.toLowerCase().includes(search.toLowerCase()) ||
       r.hospital_name.toLowerCase().includes(search.toLowerCase()) ||
+      r.locality?.toLowerCase().includes(search.toLowerCase()) ||
       r.requester_name?.toLowerCase().includes(search.toLowerCase());
     const matchesStatus = statusFilter ? r.request_status === statusFilter : true;
-    return matchesSearch && matchesStatus;
+    const matchesLocality = localityFilter ? (r.locality === localityFilter || r.hospital_name?.toLowerCase().includes(localityFilter.toLowerCase())) : true;
+    return matchesSearch && matchesStatus && matchesLocality;
   });
 
   return (
@@ -73,13 +77,13 @@ const RequestManagementPage = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200 shadow-xs">
         <div>
           <span className="text-xs font-bold text-red-600 uppercase tracking-wider">
-            Platform Operations
+            Platform Operations &bull; Chennai Hub
           </span>
           <h1 className="text-2xl font-black text-slate-900 tracking-tight mt-0.5">
             Emergency Request Management
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Manage complete lifecycle across all hospital emergency submissions.
+            Manage complete emergency lifecycle across Chennai hospitals and 15 monitored localities.
           </p>
         </div>
 
@@ -100,23 +104,37 @@ const RequestManagementPage = () => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search by case ref, hospital, requester..."
+            placeholder="Search by case ref, hospital, locality, requester..."
             className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 text-xs focus:border-red-500 outline-hidden bg-white"
           />
         </div>
 
-        <select
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-          className="px-3 py-2.5 rounded-xl border border-slate-300 text-xs focus:border-red-500 outline-hidden bg-white text-slate-700"
-        >
-          <option value="">All Workflow States</option>
-          <option value="PENDING_VERIFICATION">Pending Verification</option>
-          <option value="ACTIVE_ALERTS_SENT">Alerts Dispatched</option>
-          <option value="DONOR_RESPONDED">Donor Responded</option>
-          <option value="FULFILLED">Fulfilled</option>
-          <option value="CANCELLED">Cancelled</option>
-        </select>
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Locality Filter */}
+          <select
+            value={localityFilter}
+            onChange={(e) => setLocalityFilter(e.target.value)}
+            className="px-3 py-2.5 rounded-xl border border-slate-300 text-xs focus:border-red-500 outline-hidden bg-white text-slate-700"
+          >
+            <option value="">All Chennai Localities</option>
+            {CHENNAI_LOCALITIES.map((loc) => (
+              <option key={loc} value={loc}>{loc}</option>
+            ))}
+          </select>
+
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="px-3 py-2.5 rounded-xl border border-slate-300 text-xs focus:border-red-500 outline-hidden bg-white text-slate-700"
+          >
+            <option value="">All Workflow States</option>
+            <option value="PENDING_VERIFICATION">Pending Verification</option>
+            <option value="ACTIVE_ALERTS_SENT">Alerts Dispatched</option>
+            <option value="DONOR_RESPONDED">Donor Responded</option>
+            <option value="FULFILLED">Fulfilled</option>
+            <option value="CANCELLED">Cancelled</option>
+          </select>
+        </div>
       </div>
 
       {/* Requests Table */}

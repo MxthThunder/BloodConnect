@@ -4,35 +4,77 @@ import apiClient from '../api/client';
 const AuthContext = createContext(null);
 
 export const DEMO_CREDENTIALS = {
-  admin: {
-    email: 'admin@bloodconnect.org',
+  admin_freddy: {
+    username: 'freddy.admin',
+    email: 'freddy.admin@bloodconnect.org',
     password: 'Admin@1234',
-    name: 'Dr. Ramesh Verma (Chief Medical Admin)',
+    name: 'Freddy Matthew R',
     role: 'admin',
-    badge: 'Admin'
+    badge: 'Admin: Freddy'
+  },
+  admin_joshua: {
+    username: 'joshua.admin',
+    email: 'joshua.admin@bloodconnect.org',
+    password: 'Admin@1234',
+    name: 'Joshua Bennet C',
+    role: 'admin',
+    badge: 'Admin: Joshua'
+  },
+  admin_boopathi: {
+    username: 'boopathi.admin',
+    email: 'boopathi.admin@bloodconnect.org',
+    password: 'Admin@1234',
+    name: 'Boopathi P R',
+    role: 'admin',
+    badge: 'Admin: Boopathi'
+  },
+  admin_balakumaran: {
+    username: 'balakumaran.admin',
+    email: 'balakumaran.admin@bloodconnect.org',
+    password: 'Admin@1234',
+    name: 'Balakumaran E',
+    role: 'admin',
+    badge: 'Admin: Bala'
+  },
+  admin_abilash: {
+    username: 'abilash.admin',
+    email: 'abilash.admin@bloodconnect.org',
+    password: 'Admin@1234',
+    name: 'Abilash Alexander A',
+    role: 'admin',
+    badge: 'Admin: Abilash'
+  },
+  admin_harisankaran: {
+    username: 'harisankaran.admin',
+    email: 'harisankaran.admin@bloodconnect.org',
+    password: 'Admin@1234',
+    name: 'Harisankaran J',
+    role: 'admin',
+    badge: 'Admin: Hari'
   },
   requester: {
     email: 'requester@bloodconnect.org',
     password: 'Requester@1234',
-    name: 'Ananya Sharma (Requester)',
+    name: 'Ananya Sharma (T. Nagar)',
     role: 'requester',
     badge: 'Requester'
   },
   donor_o_neg: {
     email: 'donor.o_neg@bloodconnect.org',
     password: 'Donor@1234',
-    name: 'Vikram Malhotra (O- Universal Donor)',
+    name: 'Vikram Malhotra (O- Universal Donor, Adyar)',
     role: 'donor',
     badge: 'Donor O-'
   },
   donor_a_pos: {
     email: 'donor.a_pos@bloodconnect.org',
     password: 'Donor@1234',
-    name: 'Rahul Deshmukh (A+ Donor)',
+    name: 'Rahul Deshmukh (A+ Donor, Nungambakkam)',
     role: 'donor',
     badge: 'Donor A+'
   }
 };
+
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);

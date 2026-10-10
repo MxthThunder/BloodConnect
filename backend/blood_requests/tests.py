@@ -35,7 +35,7 @@ class BloodRequestAndMatchingWorkflowTests(TestCase):
         self.donor1 = DonorProfile.objects.create(
             user=self.donor1_user,
             blood_group='O-',  # Universal donor
-            city='Bengaluru',
+            city='Chennai',
             locality='Indiranagar',
             is_available=True,
             notification_consent=True
@@ -49,7 +49,7 @@ class BloodRequestAndMatchingWorkflowTests(TestCase):
         self.donor2 = DonorProfile.objects.create(
             user=self.donor2_user,
             blood_group='A+',  # Incompatible with O+ recipient
-            city='Bengaluru',
+            city='Chennai',
             locality='Indiranagar',
             is_available=True,
             notification_consent=True
@@ -64,8 +64,8 @@ class BloodRequestAndMatchingWorkflowTests(TestCase):
             'units_requested': 2,
             'hospital_name': 'Manipal Hospital',
             'hospital_address': 'HAL Airport Road',
-            'city': 'Bengaluru',
-            'locality': 'HAL',
+            'city': 'Chennai',
+            'locality': 'Adyar',
             'urgency': 'CRITICAL',
             'required_by': (timezone.now() + timedelta(hours=4)).isoformat(),
             'reason': 'Emergency surgery standby',
@@ -84,7 +84,7 @@ class BloodRequestAndMatchingWorkflowTests(TestCase):
             units_requested=2,
             hospital_name='Manipal Hospital',
             hospital_address='HAL Airport Road',
-            city='Bengaluru',
+            city='Chennai',
             locality='HAL',
             urgency='CRITICAL',
             required_by=timezone.now() + timedelta(hours=4),
@@ -101,7 +101,7 @@ class BloodRequestAndMatchingWorkflowTests(TestCase):
             units_requested=2,
             hospital_name='Manipal Hospital',
             hospital_address='HAL Airport Road',
-            city='Bengaluru',
+            city='Chennai',
             locality='Indiranagar',
             urgency='CRITICAL',
             required_by=timezone.now() + timedelta(hours=4),
@@ -133,7 +133,7 @@ class BloodRequestAndMatchingWorkflowTests(TestCase):
             units_requested=1,
             hospital_name='Manipal Hospital',
             hospital_address='HAL Airport Road',
-            city='Bengaluru',
+            city='Chennai',
             locality='Indiranagar',
             urgency='URGENT',
             required_by=timezone.now() + timedelta(hours=6),

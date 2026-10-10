@@ -119,7 +119,7 @@ const RequestMatchesPage = () => {
 
                     <p className="text-xs text-slate-600 flex items-center gap-1.5">
                       <MapPin className="w-3.5 h-3.5 text-slate-400" />
-                      <span>{match.donor_details?.locality || 'Bengaluru'}, {match.donor_details?.city}</span>
+                      <span>{match.donor_details?.locality || 'Chennai'}, {match.donor_details?.city || 'Chennai'}</span>
                       {match.distance_km && (
                         <span className="text-slate-500">&bull; ~{match.distance_km} km away</span>
                       )}

@@ -3,6 +3,7 @@ import apiClient from '../../api/client';
 import BloodGroupBadge from '../../components/BloodGroupBadge';
 import StatusBadge from '../../components/StatusBadge';
 import ClinicalDisclaimer from '../../components/ClinicalDisclaimer';
+import { CHENNAI_LOCALITIES, formatIndianPhone } from '../../constants/chennaiData';
 import { Heart, Search, Phone, MapPin, CheckCircle2, ShieldCheck, Filter } from 'lucide-react';
 
 const DonorManagementPage = () => {
@@ -11,6 +12,7 @@ const DonorManagementPage = () => {
   const [search, setSearch] = useState('');
   const [groupFilter, setGroupFilter] = useState('');
   const [availFilter, setAvailFilter] = useState('');
+  const [localityFilter, setLocalityFilter] = useState('');
 
   const fetchDonors = async () => {
     setLoading(true);
@@ -37,7 +39,8 @@ const DonorManagementPage = () => {
       d.locality.toLowerCase().includes(search.toLowerCase());
     const matchesGroup = groupFilter ? d.blood_group === groupFilter : true;
     const matchesAvail = availFilter ? String(d.is_available) === availFilter : true;
-    return matchesSearch && matchesGroup && matchesAvail;
+    const matchesLocality = localityFilter ? d.locality === localityFilter : true;
+    return matchesSearch && matchesGroup && matchesAvail && matchesLocality;
   });
 
   return (
@@ -45,18 +48,18 @@ const DonorManagementPage = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200 shadow-xs">
         <div>
           <span className="text-xs font-bold text-red-600 uppercase tracking-wider">
-            Network Registry
+            Network Registry &bull; Chennai
           </span>
           <h1 className="text-2xl font-black text-slate-900 tracking-tight mt-0.5">
             Registered Voluntary Donors
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Search, filter, and review verified standby donors across Bengaluru localities.
+            Search, filter, and review verified standby donors across Chennai localities.
           </p>
         </div>
 
         <span className="px-3.5 py-1.5 rounded-xl bg-slate-100 text-slate-800 text-xs font-bold">
-          {donors.length} Registered Donors
+          {filtered.length} of {donors.length} Donors
         </span>
       </div>
 
@@ -75,7 +78,19 @@ const DonorManagementPage = () => {
           />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Chennai Locality Filter */}
+          <select
+            value={localityFilter}
+            onChange={(e) => setLocalityFilter(e.target.value)}
+            className="px-3 py-2.5 rounded-xl border border-slate-300 text-xs focus:border-red-500 outline-hidden bg-white text-slate-700"
+          >
+            <option value="">All Chennai Localities</option>
+            {CHENNAI_LOCALITIES.map((loc) => (
+              <option key={loc} value={loc}>{loc}</option>
+            ))}
+          </select>
+
           <select
             value={groupFilter}
             onChange={(e) => setGroupFilter(e.target.value)}
@@ -150,7 +165,7 @@ const DonorManagementPage = () => {
                     {d.total_donations || 0} times
                   </td>
                   <td className="py-3 px-4 font-medium text-slate-700">
-                    {d.contact_phone}
+                    {formatIndianPhone(d.contact_phone)}
                   </td>
                 </tr>
               ))}

@@ -22,7 +22,7 @@ class DonorProfile(models.Model):
     )
     city = models.CharField(max_length=100)
     locality = models.CharField(max_length=100)
-    state = models.CharField(max_length=100, default='Karnataka')
+    state = models.CharField(max_length=100, default='Tamil Nadu')
     approx_latitude = models.FloatField(null=True, blank=True)
     approx_longitude = models.FloatField(null=True, blank=True)
     is_available = models.BooleanField(

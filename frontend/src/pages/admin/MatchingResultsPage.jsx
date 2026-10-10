@@ -127,7 +127,7 @@ const MatchingResultsPage = () => {
                     </span>
                   </td>
                   <td className="py-3 px-4 text-slate-600">
-                    {m.distance_km ? `~${m.distance_km} km` : m.donor_details?.locality || 'Bengaluru'}
+                    {m.distance_km ? `~${m.distance_km} km` : m.donor_details?.locality || 'Chennai'}
                   </td>
                   <td className="py-3 px-4">
                     <StatusBadge type="alert_response" value={m.alert_status} size="xs" />

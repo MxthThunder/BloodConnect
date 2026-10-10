@@ -37,6 +37,7 @@ class DashboardStatsView(views.APIView):
         pending_verification = BloodRequest.objects.filter(verification_status=VerificationStatus.PENDING).count()
         active_approved = BloodRequest.objects.filter(verification_status=VerificationStatus.APPROVED, request_status__in=['ACTIVE_ALERTS_SENT', 'DONOR_RESPONDED']).count()
         fulfilled_requests = BloodRequest.objects.filter(request_status=RequestStatus.FULFILLED).count()
+        requests_with_responses = BloodRequest.objects.filter(matches__alert_status=AlertStatus.ACCEPTED).distinct().count()
 
         total_matches = DonorMatch.objects.count()
         accepted_responses = DonorMatch.objects.filter(alert_status=AlertStatus.ACCEPTED).count()
@@ -64,27 +65,56 @@ class DashboardStatsView(views.APIView):
                     'units': units
                 })
 
-        recent_requests = BloodRequest.objects.all().order_by('-created_at')[:6].values(
-            'id', 'reference_number', 'blood_group', 'units_requested',
-            'hospital_name', 'urgency', 'verification_status', 'request_status', 'created_at'
+        # Donors by Locality in Chennai
+        donors_by_locality = list(
+            DonorProfile.objects.values('locality')
+            .annotate(count=Count('id'))
+            .order_by('-count')[:10]
         )
 
-        recent_audits = AuditLog.objects.all().order_by('-created_at')[:6].values(
+        recent_requests = BloodRequest.objects.all().order_by('-created_at')[:8].values(
+            'id', 'reference_number', 'blood_group', 'units_requested',
+            'hospital_name', 'locality', 'urgency', 'verification_status', 'request_status', 'created_at'
+        )
+
+        recent_responses_qs = DonorMatch.objects.filter(
+            alert_status__in=[AlertStatus.ACCEPTED, AlertStatus.DECLINED]
+        ).select_related('blood_request', 'donor__user').order_by('-responded_at')[:6]
+
+        recent_donor_responses = []
+        for r in recent_responses_qs:
+            recent_donor_responses.append({
+                'id': r.id,
+                'request_ref': r.blood_request.reference_number,
+                'hospital_name': r.blood_request.hospital_name,
+                'blood_group': r.blood_request.blood_group,
+                'status': r.alert_status,
+                'donor_name': f"Donor {r.donor.user.first_name} ({r.donor.blood_group})",
+                'locality': r.donor.locality,
+                'message': r.donor_response_message,
+                'responded_at': r.responded_at
+            })
+
+        recent_audits = AuditLog.objects.all().order_by('-created_at')[:8].values(
             'id', 'actor_email', 'action', 'target_model', 'details', 'created_at'
         )
 
         return Response({
             'role': 'admin',
+            'environment': 'Chennai Demo Environment',
+            'is_demo_data': True,
             'donors': {
                 'total': total_donors,
                 'available': available_donors,
-                'consenting': consenting_donors
+                'consenting': consenting_donors,
+                'by_locality': donors_by_locality
             },
             'requests': {
                 'total': total_requests,
                 'pending_verification': pending_verification,
                 'active_approved': active_approved,
-                'fulfilled': fulfilled_requests
+                'fulfilled': fulfilled_requests,
+                'with_responses': requests_with_responses
             },
             'matches': {
                 'total': total_matches,
@@ -98,6 +128,7 @@ class DashboardStatsView(views.APIView):
                 'low_stock_items': low_stock_items
             },
             'recent_requests': list(recent_requests),
+            'recent_donor_responses': recent_donor_responses,
             'recent_audits': list(recent_audits)
         })
 

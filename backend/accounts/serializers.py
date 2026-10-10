@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
+from django.db.models import Q
 from .models import User, UserRole
 from donors.models import DonorProfile
 from accounts.constants import BloodGroup
@@ -103,26 +104,37 @@ class RegisterSerializer(serializers.Serializer):
 
 
 class LoginSerializer(serializers.Serializer):
-    email = serializers.EmailField()
+    email = serializers.CharField(required=False, allow_blank=True)
+    username = serializers.CharField(required=False, allow_blank=True)
     password = serializers.CharField(write_only=True)
 
     def validate(self, attrs):
-        email = attrs.get('email', '').strip().lower()
+        identifier = attrs.get('email') or attrs.get('username') or ''
+        identifier = identifier.strip()
         password = attrs.get('password')
 
-        user = authenticate(username=email, password=password)
+        if not identifier:
+            raise serializers.ValidationError("Please provide your username or email.")
+
+        user = authenticate(username=identifier.lower(), password=password)
         if not user:
-            # Check by username if different
+            user = authenticate(username=identifier, password=password)
+        if not user:
+            # Check if identifier matches an existing user's email or username
             try:
-                user_obj = User.objects.get(email=email)
-                user = authenticate(username=user_obj.username, password=password)
-            except User.DoesNotExist:
+                user_obj = User.objects.filter(
+                    Q(email__iexact=identifier) | Q(username__iexact=identifier)
+                ).first()
+                if user_obj:
+                    user = authenticate(username=user_obj.username, password=password)
+            except Exception:
                 pass
 
         if not user:
-            raise serializers.ValidationError("Invalid email or password.")
+            raise serializers.ValidationError("Invalid email/username or password.")
         if not user.is_active:
             raise serializers.ValidationError("Account is inactive or disabled.")
 
         attrs['user'] = user
         return attrs
+

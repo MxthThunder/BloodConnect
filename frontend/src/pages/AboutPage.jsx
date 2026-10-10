@@ -4,12 +4,12 @@ import { Users, Lightbulb, Target, Cpu, CheckCircle2, FileSpreadsheet, Shield } 
 
 const AboutPage = () => {
   const teamMembers = [
-    { name: 'Student 1', role: 'Full-Stack Architecture & Backend Lead' },
-    { name: 'Student 2', role: 'UI/UX Design & Frontend Engineering' },
-    { name: 'Student 3', role: 'Database & Matching Engine Architect' },
-    { name: 'Student 4', role: 'Clinical Data Modeling & Verification Lead' },
-    { name: 'Student 5', role: 'Quality Assurance & Automated Testing' },
-    { name: 'Student 6', role: 'Design Thinking Research & Documentation' },
+    { name: 'Freddy Matthew R', username: 'freddy.admin', email: 'freddy.admin@bloodconnect.org', role: 'Full-Stack Architecture & Backend Lead' },
+    { name: 'Joshua Bennet C', username: 'joshua.admin', email: 'joshua.admin@bloodconnect.org', role: 'UI/UX Design & Frontend Engineering' },
+    { name: 'Boopathi P R', username: 'boopathi.admin', email: 'boopathi.admin@bloodconnect.org', role: 'Database & Matching Engine Architect' },
+    { name: 'Balakumaran E', username: 'balakumaran.admin', email: 'balakumaran.admin@bloodconnect.org', role: 'Clinical Data Modeling & Verification Lead' },
+    { name: 'Abilash Alexander A', username: 'abilash.admin', email: 'abilash.admin@bloodconnect.org', role: 'Quality Assurance & Automated Testing' },
+    { name: 'Harisankaran J', username: 'harisankaran.admin', email: 'harisankaran.admin@bloodconnect.org', role: 'Design Thinking Research & Documentation' },
   ];
 
   const designThinkingStages = [
@@ -36,7 +36,7 @@ const AboutPage = () => {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+    <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
       {/* Page Header */}
       <div className="text-center space-y-4 max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-100 text-red-800 text-xs font-semibold">
@@ -166,10 +166,16 @@ const AboutPage = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {teamMembers.map((member, i) => (
-            <div key={i} className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-2xs space-y-1">
-              <span className="text-[11px] font-bold text-red-600 uppercase">Team Member {i + 1}</span>
+            <div key={i} className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-1.5">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold text-red-600 uppercase">Team Member {i + 1}</span>
+                <span className="text-[10px] font-mono bg-red-50 text-red-700 px-2 py-0.5 rounded-md font-bold">
+                  {member.username}
+                </span>
+              </div>
               <h3 className="font-bold text-sm text-slate-900">{member.name}</h3>
-              <p className="text-xs text-slate-500">{member.role}</p>
+              <p className="text-xs text-slate-600">{member.role}</p>
+              <p className="text-[11px] text-slate-400 font-mono pt-1 border-t border-slate-100">{member.email}</p>
             </div>
           ))}
         </div>

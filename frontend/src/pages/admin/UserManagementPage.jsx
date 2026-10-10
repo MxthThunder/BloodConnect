@@ -128,10 +128,10 @@ const UserManagementPage = () => {
                       {u.role}
                     </span>
                   </td>
-                  <td className="py-3 px-4 text-slate-600">{u.phone || 'N/A'}</td>
-                  <td className="py-3 px-4 text-slate-600">{u.locality || u.city || 'Bengaluru'}</td>
+                  <td className="py-3 px-4 text-slate-600">{u.phone ? u.phone : 'N/A'}</td>
+                  <td className="py-3 px-4 text-slate-600">{u.locality ? `${u.locality}, Chennai` : (u.city || 'Chennai')}</td>
                   <td className="py-3 px-4 text-slate-500">
-                    {new Date(u.created_at).toLocaleDateString()}
+                    {new Date(u.created_at).toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', day: '2-digit', month: '2-digit', year: 'numeric' })}
                   </td>
                   <td className="py-3 px-4 text-right">
                     <button

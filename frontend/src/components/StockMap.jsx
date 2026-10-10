@@ -14,8 +14,8 @@ const customHospitalIcon = new L.DivIcon({
 });
 
 const StockMap = ({ bloodBanks = [], height = '360px' }) => {
-  // Center around Bengaluru
-  const defaultCenter = [12.965, 77.605];
+  // Center around Chennai, Tamil Nadu
+  const defaultCenter = [13.0600, 80.2400];
 
   return (
     <div style={{ height }} className="w-full rounded-2xl overflow-hidden border border-slate-200 shadow-sm relative z-0">
@@ -32,7 +32,7 @@ const StockMap = ({ bloodBanks = [], height = '360px' }) => {
         {bloodBanks.map((bank) => (
           <Marker
             key={bank.id}
-            position={[bank.latitude || 12.9716, bank.longitude || 77.5946]}
+            position={[bank.latitude || 13.0805, bank.longitude || 80.2785]}
             icon={customHospitalIcon}
           >
             <Popup className="blood-bank-popup">

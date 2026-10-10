@@ -34,8 +34,8 @@ class DonorProfileView(views.APIView):
             profile = DonorProfile.objects.create(
                 user=request.user,
                 blood_group=request.data.get('blood_group', 'O+'),
-                city=request.user.city or 'Bengaluru',
-                locality=request.user.locality or 'Central'
+                city=request.user.city or 'Chennai',
+                locality=request.user.locality or 'Adyar'
             )
 
         serializer = DonorProfileSerializer(profile, data=request.data, partial=True)

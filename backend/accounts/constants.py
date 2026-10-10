@@ -21,3 +21,22 @@ class UrgencyLevel(models.TextChoices):
     CRITICAL = 'CRITICAL', 'Critical (Within 2 Hours)'
     URGENT = 'URGENT', 'Urgent (Within 6 Hours)'
     STANDARD = 'STANDARD', 'Standard (Within 24 Hours)'
+
+CHENNAI_LOCALITIES = [
+    'Adyar',
+    'Anna Nagar',
+    'T. Nagar',
+    'Velachery',
+    'Tambaram',
+    'Guindy',
+    'Mylapore',
+    'Porur',
+    'Perambur',
+    'Royapettah',
+    'Vadapalani',
+    'Sholinganallur',
+    'Thoraipakkam',
+    'Nungambakkam',
+    'Ambattur',
+]
+

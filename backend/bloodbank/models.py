@@ -13,8 +13,8 @@ class BloodBank(models.Model):
     contact_phone = models.CharField(max_length=30)
     contact_email = models.EmailField(blank=True)
     operating_hours = models.CharField(max_length=100, default='24 Hours Emergency Desk')
-    latitude = models.FloatField(default=12.9716)
-    longitude = models.FloatField(default=77.5946)
+    latitude = models.FloatField(default=13.0827)
+    longitude = models.FloatField(default=80.2707)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

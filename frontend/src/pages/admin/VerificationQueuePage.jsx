@@ -202,7 +202,7 @@ const VerificationQueuePage = () => {
                   Critical Verification Warning:
                 </span>
                 <p className="leading-relaxed">
-                  Approving this request will immediately execute the Python matching engine and generate simulated in-app alerts to all matching, consenting donors registered in Bengaluru.
+                  Approving this request will immediately execute the Python matching engine and generate simulated in-app alerts to all matching, consenting donors registered in Chennai.
                 </p>
               </div>
 

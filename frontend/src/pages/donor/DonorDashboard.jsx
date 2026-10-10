@@ -74,7 +74,7 @@ const DonorDashboard = () => {
               Volunteer Donor Portal
             </h1>
             <p className="text-xs text-slate-500">
-              Locality: <strong className="text-slate-800">{profile?.locality || 'Bengaluru'}</strong> &bull; Profile: {profile?.completion_percentage || 100}% Complete
+              Locality: <strong className="text-slate-800">{profile?.locality ? `${profile.locality}, Chennai` : 'Chennai'}</strong> &bull; Profile: {profile?.completion_percentage || 100}% Complete
             </p>
           </div>
         </div>

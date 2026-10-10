@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Logo from '../components/Logo';
-import ClinicalDisclaimer from '../components/ClinicalDisclaimer';
+import { CHENNAI_LOCALITIES } from '../constants/chennaiData';
 import { Heart, User, CheckCircle2, AlertCircle, ArrowRight } from 'lucide-react';
 
 const RegisterPage = () => {
@@ -16,8 +16,8 @@ const RegisterPage = () => {
     first_name: '',
     last_name: '',
     phone: '',
-    city: 'Bengaluru',
-    locality: '',
+    city: 'Chennai',
+    locality: 'Adyar',
     blood_group: 'O+',
     notification_consent: true,
     preferred_contact: 'in_app',
@@ -195,22 +195,25 @@ const RegisterPage = () => {
                   type="text"
                   name="city"
                   required
+                  readOnly
                   value={formData.city}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-hidden"
+                  className="mt-1 block w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-slate-50 focus:border-red-500 outline-hidden"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-700">Locality / Area *</label>
-                <input
-                  type="text"
+                <label className="block text-xs font-semibold text-slate-700">Chennai Locality *</label>
+                <select
                   name="locality"
                   required
                   value={formData.locality}
                   onChange={handleChange}
-                  placeholder="e.g. Indiranagar"
-                  className="mt-1 block w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-hidden"
-                />
+                  className="mt-1 block w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-red-500 outline-hidden bg-white"
+                >
+                  {CHENNAI_LOCALITIES.map((loc) => (
+                    <option key={loc} value={loc}>{loc}</option>
+                  ))}
+                </select>
               </div>
             </div>
 

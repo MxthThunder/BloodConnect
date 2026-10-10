@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import apiClient from '../../api/client';
+import { CHENNAI_LOCALITIES } from '../../constants/chennaiData';
 import { User, Phone, MapPin, Mail, CheckCircle2, AlertCircle } from 'lucide-react';
 
 const RequesterProfilePage = () => {
@@ -9,8 +9,8 @@ const RequesterProfilePage = () => {
     first_name: user?.first_name || '',
     last_name: user?.last_name || '',
     phone: user?.phone || '',
-    city: user?.city || 'Bengaluru',
-    locality: user?.locality || '',
+    city: user?.city || 'Chennai',
+    locality: user?.locality || 'T. Nagar',
   });
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -111,20 +111,24 @@ const RequesterProfilePage = () => {
               <input
                 type="text"
                 required
+                readOnly
                 value={form.city}
-                onChange={(e) => setForm({ ...form, city: e.target.value })}
-                className="mt-1 block w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-red-500 outline-hidden"
+                className="mt-1 block w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-slate-50 focus:border-red-500 outline-hidden"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-700">Locality</label>
-              <input
-                type="text"
+              <label className="block text-xs font-semibold text-slate-700">Chennai Locality</label>
+              <select
+                name="locality"
                 required
                 value={form.locality}
                 onChange={(e) => setForm({ ...form, locality: e.target.value })}
-                className="mt-1 block w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-red-500 outline-hidden"
-              />
+                className="mt-1 block w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-red-500 outline-hidden bg-white"
+              >
+                {CHENNAI_LOCALITIES.map((loc) => (
+                  <option key={loc} value={loc}>{loc}</option>
+                ))}
+              </select>
             </div>
           </div>
 

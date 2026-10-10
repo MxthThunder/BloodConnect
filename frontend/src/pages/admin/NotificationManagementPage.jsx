@@ -44,7 +44,7 @@ const NotificationManagementPage = () => {
             Dispatched Notifications Registry
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Global log of simulated in-app alerts delivered to registered users across Bengaluru.
+            Global log of simulated in-app alerts delivered to registered users across Chennai.
           </p>
         </div>
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import apiClient from '../../api/client';
 import BloodGroupBadge from '../../components/BloodGroupBadge';
 import ClinicalDisclaimer from '../../components/ClinicalDisclaimer';
+import { CHENNAI_LOCALITIES } from '../../constants/chennaiData';
 import { User, Heart, MapPin, Bell, CheckCircle2, AlertCircle, ShieldCheck } from 'lucide-react';
 
 const DonorProfilePage = () => {
@@ -119,21 +120,24 @@ const DonorProfilePage = () => {
                 type="text"
                 name="city"
                 required
-                value={profile?.city || ''}
-                onChange={handleChange}
-                className="mt-1 block w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-red-500 outline-hidden"
+                readOnly
+                value={profile?.city || 'Chennai'}
+                className="mt-1 block w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-slate-50 focus:border-red-500 outline-hidden"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-700">Locality / Area *</label>
-              <input
-                type="text"
+              <label className="block text-xs font-semibold text-slate-700">Chennai Locality *</label>
+              <select
                 name="locality"
                 required
-                value={profile?.locality || ''}
+                value={profile?.locality || 'Adyar'}
                 onChange={handleChange}
-                className="mt-1 block w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-red-500 outline-hidden"
-              />
+                className="mt-1 block w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-red-500 outline-hidden bg-white"
+              >
+                {CHENNAI_LOCALITIES.map((loc) => (
+                  <option key={loc} value={loc}>{loc}</option>
+                ))}
+              </select>
             </div>
           </div>
 

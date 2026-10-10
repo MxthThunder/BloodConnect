@@ -31,8 +31,8 @@ class AuthenticationAndPermissionTests(TestCase):
         self.donor_profile = DonorProfile.objects.create(
             user=self.donor_user,
             blood_group='O+',
-            city='Bengaluru',
-            locality='Indiranagar',
+            city='Chennai',
+            locality='Adyar',
             is_available=True
         )
 
@@ -44,7 +44,7 @@ class AuthenticationAndPermissionTests(TestCase):
             'last_name': 'Requester',
             'role': 'requester',
             'phone': '9876543210',
-            'city': 'Bengaluru',
+            'city': 'Chennai',
             'locality': 'Koramangala'
         })
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -60,7 +60,7 @@ class AuthenticationAndPermissionTests(TestCase):
             'role': 'donor',
             'blood_group': 'B+',
             'phone': '9876543211',
-            'city': 'Bengaluru',
+            'city': 'Chennai',
             'locality': 'Whitefield'
         })
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

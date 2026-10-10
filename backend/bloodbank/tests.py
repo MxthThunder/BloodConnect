@@ -24,8 +24,8 @@ class BloodBankAndStockManagementTests(TestCase):
         self.bank = BloodBank.objects.create(
             name='Test Central Blood Bank',
             address='123 Test Street',
-            city='Bengaluru',
-            locality='City Centre',
+            city='Chennai',
+            locality='T. Nagar',
             contact_phone='9845000000'
         )
         self.stock = BloodStock.objects.create(
