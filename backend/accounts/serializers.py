@@ -116,19 +116,14 @@ class LoginSerializer(serializers.Serializer):
         if not identifier:
             raise serializers.ValidationError("Please provide your username or email.")
 
-        user = authenticate(username=identifier.lower(), password=password)
-        if not user:
-            user = authenticate(username=identifier, password=password)
-        if not user:
-            # Check if identifier matches an existing user's email or username
-            try:
-                user_obj = User.objects.filter(
-                    Q(email__iexact=identifier) | Q(username__iexact=identifier)
-                ).first()
-                if user_obj:
-                    user = authenticate(username=user_obj.username, password=password)
-            except Exception:
-                pass
+        user_obj = User.objects.filter(
+            Q(email__iexact=identifier) | Q(username__iexact=identifier)
+        ).first()
+
+        if user_obj and user_obj.check_password(password):
+            user = user_obj
+        else:
+            user = None
 
         if not user:
             raise serializers.ValidationError("Invalid email/username or password.")

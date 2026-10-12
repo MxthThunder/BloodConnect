@@ -40,15 +40,15 @@ const DemoSwitcher = () => {
     <div className="relative inline-block text-left">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100 transition shadow-2xs"
-        title="Switch user role for college evaluation demonstration"
+        className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-slate-900 text-white hover:bg-slate-800 transition shadow-md border border-slate-700"
+        title="Switch user role in sandbox environment"
       >
-        <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-        <span className="hidden sm:inline">Demo Switcher:</span>
-        <span className="font-bold underline decoration-amber-400">
-          {user ? `${user.role.toUpperCase()}` : 'Select Role'}
+        <Users className="w-3.5 h-3.5 text-red-400" />
+        <span className="hidden sm:inline text-slate-300">Active Role:</span>
+        <span className="font-bold text-white capitalize">
+          {user ? user.role : 'Select Role'}
         </span>
-        <ChevronDown className="w-3 h-3 text-amber-700" />
+        <ChevronDown className="w-3 h-3 text-slate-400" />
       </button>
 
       {isOpen && (
@@ -57,22 +57,22 @@ const DemoSwitcher = () => {
             className="fixed inset-0 z-40"
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute right-0 mt-2 w-80 max-h-[85vh] overflow-y-auto rounded-2xl bg-white shadow-2xl border border-slate-200 z-50 p-2 space-y-2">
-            <div className="px-3 py-2 border-b border-slate-100 bg-slate-50/50 rounded-xl">
+          <div className="absolute right-0 bottom-full mb-2 sm:bottom-auto sm:top-full sm:mt-2 w-80 max-h-[80vh] overflow-y-auto rounded-2xl bg-white shadow-2xl border border-slate-200 z-50 p-2 space-y-2">
+            <div className="px-3 py-2 border-b border-slate-100 bg-slate-50/70 rounded-xl">
               <p className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                <Users className="w-3.5 h-3.5 text-red-600" />
-                Examiner & Team Demo Switcher
+                <ShieldCheck className="w-3.5 h-3.5 text-red-600" />
+                Sandbox Role Selector
               </p>
               <p className="text-[11px] text-slate-500 mt-0.5">
-                1-click switch between the 6 team administrators, requesters, and donors:
+                Switch active authentication session across platform user roles:
               </p>
             </div>
 
             {/* Team Administrators Section */}
             <div>
-              <p className="px-2 py-1 text-[10px] font-bold text-red-700 uppercase tracking-wider flex items-center gap-1">
-                <ShieldCheck className="w-3 h-3" />
-                Team Administrators (All 6 Accounts)
+              <p className="px-2 py-1 text-[10px] font-bold text-slate-600 uppercase tracking-wider flex items-center gap-1">
+                <ShieldCheck className="w-3 h-3 text-red-600" />
+                System Administrators
               </p>
               <div className="space-y-1 mt-1">
                 {adminKeys.map((key) => {

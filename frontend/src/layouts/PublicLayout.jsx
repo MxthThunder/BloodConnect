@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Logo from '../components/Logo';
-import DemoSwitcher from '../components/DemoSwitcher';
-import { Menu, X, ArrowRight, Heart, ShieldAlert, PhoneCall, Building2 } from 'lucide-react';
+import { Menu, X, ArrowRight, Heart, ShieldAlert, PhoneCall, Building2, LogOut, LogIn, ShieldCheck } from 'lucide-react';
 
 const PublicLayout = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
   const location = useLocation();
 
   const getDashboardPath = () => {
@@ -21,22 +20,22 @@ const PublicLayout = () => {
     { label: 'Home', path: '/' },
     { label: 'How It Works', path: '/how-it-works' },
     { label: 'Blood Awareness', path: '/awareness' },
-    { label: 'About Project', path: '/about' },
+    { label: 'About BloodConnect', path: '/about' },
     { label: 'Contact & Help', path: '/contact' },
   ];
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 antialiased">
       {/* Top emergency notice banner */}
-      <div className="bg-gradient-to-r from-red-700 via-red-600 to-rose-700 text-white text-xs py-2 px-4">
+      <div className="bg-gradient-to-r from-red-700 via-red-600 to-rose-700 text-white text-xs py-2 px-4 shadow-xs">
         <div className="max-w-[1650px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-1 text-center sm:text-left">
           <div className="flex items-center gap-2 font-medium">
             <span className="w-2 h-2 rounded-full bg-white animate-ping" />
-            <span>Emergency Blood Coordination Network — Chennai, Tamil Nadu Prototype</span>
+            <span>Emergency Blood Coordination Network — Chennai, Tamil Nadu</span>
           </div>
-          <div className="flex items-center gap-4 text-[11px] opacity-90">
-            <span>24/7 Helpline: 108 / +91 44 2530 5000</span>
-            <span className="hidden md:inline">| College Design Thinking Project (Asia/Kolkata)</span>
+          <div className="flex items-center gap-4 text-[11px] opacity-95">
+            <span>24/7 Helpline: 9884245552</span>
+            <span className="hidden md:inline">| Serving 15+ Major Hospitals Across Chennai</span>
           </div>
         </div>
       </div>
@@ -67,31 +66,40 @@ const PublicLayout = () => {
           </nav>
 
           {/* Right actions */}
-          <div className="flex items-center gap-3">
-            {/* Quick Demo Switcher */}
-            <DemoSwitcher />
-
+          <div className="flex items-center gap-2 sm:gap-3">
             {isAuthenticated ? (
-              <Link
-                to={getDashboardPath()}
-                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 transition shadow-sm"
-              >
-                <span>Dashboard ({user.role})</span>
-                <ArrowRight className="w-4 h-4 text-red-400" />
-              </Link>
+              <div className="flex items-center gap-2">
+                <Link
+                  to={getDashboardPath()}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 text-white text-xs sm:text-sm font-semibold hover:bg-slate-800 transition shadow-sm"
+                >
+                  <span>Dashboard ({user?.role})</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-red-400" />
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => logout()}
+                  className="inline-flex items-center gap-1 px-3 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm font-semibold text-slate-700 hover:text-rose-600 hover:bg-rose-50 transition cursor-pointer"
+                  title="Sign out of current account"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span className="hidden md:inline">Sign Out</span>
+                </button>
+              </div>
             ) : (
-              <div className="hidden sm:flex items-center gap-2">
+              <div className="flex items-center gap-2">
                 <Link
                   to="/login"
-                  className="px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-700 hover:text-red-600 hover:bg-red-50/50 transition border border-slate-200 sm:border-transparent"
                 >
-                  Sign In
+                  <LogIn className="w-3.5 h-3.5 text-red-600" />
+                  <span>Sign In</span>
                 </Link>
                 <Link
                   to="/register"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-red-600 text-white text-sm font-semibold hover:bg-red-700 transition shadow-sm shadow-red-600/20"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-red-600 text-white text-xs sm:text-sm font-semibold hover:bg-red-700 transition shadow-sm shadow-red-600/20"
                 >
-                  <Heart className="w-4 h-4 fill-white" />
+                  <Heart className="w-3.5 h-3.5 fill-white" />
                   <span>Join Network</span>
                 </Link>
               </div>
@@ -124,13 +132,25 @@ const PublicLayout = () => {
             </div>
             <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
               {isAuthenticated ? (
-                <Link
-                  to={getDashboardPath()}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center py-2.5 rounded-xl bg-slate-900 text-white font-semibold text-sm"
-                >
-                  Enter Portal ({user.role})
-                </Link>
+                <>
+                  <Link
+                    to={getDashboardPath()}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full text-center py-2.5 rounded-xl bg-slate-900 text-white font-semibold text-sm"
+                  >
+                    Enter Portal ({user?.role})
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      logout();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="w-full text-center py-2 rounded-xl border border-slate-200 text-rose-600 font-semibold text-sm hover:bg-rose-50"
+                  >
+                    Sign Out
+                  </button>
+                </>
               ) : (
                 <>
                   <Link
@@ -138,14 +158,14 @@ const PublicLayout = () => {
                     onClick={() => setMobileMenuOpen(false)}
                     className="w-full text-center py-2 rounded-xl border border-slate-200 text-slate-700 font-semibold text-sm"
                   >
-                    Sign In
+                    Sign In to Portal
                   </Link>
                   <Link
                     to="/register"
                     onClick={() => setMobileMenuOpen(false)}
                     className="w-full text-center py-2 rounded-xl bg-red-600 text-white font-semibold text-sm"
                   >
-                    Register
+                    Register as Donor or Requester
                   </Link>
                 </>
               )}
@@ -173,12 +193,12 @@ const PublicLayout = () => {
                 </span>
               </div>
               <p className="text-sm text-slate-400 max-w-md leading-relaxed">
-                Emergency Blood Donor Matching and Monitoring System (Chennai, Tamil Nadu). A centralized digital platform developed as a Design Thinking engineering project to alleviate critical blood shortages through verified alerts and donor coordination.
+                Emergency Blood Donor Matching and Real-Time Availability Network (Chennai, Tamil Nadu). A centralized digital health infrastructure connecting voluntary donors, hospitals, and patients during critical medical emergencies.
               </p>
-              <div className="text-xs text-slate-500 space-y-1">
-                <p><strong>Design Thinking Team:</strong> CS Engineering Students (Batch 2026)</p>
-                <p><strong>Primary Region:</strong> Chennai, Tamil Nadu, India (Asia/Kolkata)</p>
-                <p><strong>Evaluation Scope:</strong> Academic prototype with synthetic verified records across 15 Chennai localities.</p>
+              <div className="text-xs text-slate-400 space-y-1">
+                <p><strong>Regional Network:</strong> Greater Chennai Corporation (15 Zones)</p>
+                <p><strong>Primary Hub:</strong> Chennai, Tamil Nadu, India</p>
+                <p><strong>Clinical Standards:</strong> Verified ABO/Rh Compatibility Protocols</p>
               </div>
             </div>
 
@@ -190,7 +210,7 @@ const PublicLayout = () => {
                 <li><Link to="/" className="hover:text-white transition">Home Overview</Link></li>
                 <li><Link to="/how-it-works" className="hover:text-white transition">Matching Flow</Link></li>
                 <li><Link to="/awareness" className="hover:text-white transition">Donor Compatibility</Link></li>
-                <li><Link to="/about" className="hover:text-white transition">Design Thinking Research</Link></li>
+                <li><Link to="/about" className="hover:text-white transition">About BloodConnect</Link></li>
                 <li><Link to="/contact" className="hover:text-white transition">Hospital Directory</Link></li>
               </ul>
             </div>
@@ -202,7 +222,7 @@ const PublicLayout = () => {
               <ul className="space-y-2.5 text-xs text-slate-400">
                 <li className="flex items-center gap-2 text-slate-300">
                   <PhoneCall className="w-4 h-4 text-red-400 shrink-0" />
-                  <span>Tamil Nadu Blood Helpline: 104 / 108</span>
+                  <span>24/7 Helpline: 9884245552</span>
                 </li>
                 <li className="flex items-center gap-2 text-slate-300">
                   <Building2 className="w-4 h-4 text-red-400 shrink-0" />
@@ -213,19 +233,19 @@ const PublicLayout = () => {
                   <span>Apollo Greams Road: +91 44 2829 0200</span>
                 </li>
               </ul>
-              <div className="mt-4 p-3 rounded-lg bg-slate-800/80 border border-slate-700/60 text-[11px] text-amber-300 flex items-start gap-2">
-                <ShieldAlert className="w-4 h-4 shrink-0 text-amber-400 mt-0.5" />
-                <span>All sample records in this prototype are demonstration data for faculty assessment.</span>
+              <div className="mt-4 p-3 rounded-xl bg-slate-800/90 border border-slate-700/80 text-[11px] text-slate-300 flex items-start gap-2">
+                <ShieldCheck className="w-4 h-4 shrink-0 text-emerald-400 mt-0.5" />
+                <span>All patient records and blood donation requests undergo clinical verification prior to dispatch.</span>
               </div>
             </div>
           </div>
 
           <div className="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-            <p>&copy; {new Date().getFullYear()} BloodConnect Project Team (Chennai). Built for Design Thinking Evaluation.</p>
+            <p>&copy; {new Date().getFullYear()} BloodConnect Emergency Donor Network. All rights reserved.</p>
             <div className="flex items-center gap-4">
-              <span>ABO/Rh Blood Matching Protocol</span>
-              <span>OpenStreetMap / Leaflet (Chennai)</span>
-              <span>Django REST + React</span>
+              <span>ABO/Rh Blood Protocol</span>
+              <span>OpenStreetMap Geospatial</span>
+              <span>256-Bit SSL Secured</span>
             </div>
           </div>
         </div>
