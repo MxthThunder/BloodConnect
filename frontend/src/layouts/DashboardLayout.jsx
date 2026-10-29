@@ -217,14 +217,15 @@ const DashboardLayout = () => {
           </div>
 
           <div className="flex items-center gap-3">
-            {/* Demo Switcher for Examiners */}
-            <DemoSwitcher />
-
             {/* Notifications */}
             <NotificationDropdown />
 
-            {/* User Profile Avatar */}
-            <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
+            {/* User Profile Avatar Link */}
+            <Link
+              to={role === 'donor' ? '/donor/profile' : role === 'requester' ? '/requester/profile' : '/admin-portal/dashboard'}
+              className="flex items-center gap-2 pl-2 border-l border-slate-200 hover:opacity-80 transition cursor-pointer"
+              title="View and edit account profile"
+            >
               <div className="w-8 h-8 rounded-lg bg-red-100 text-red-700 font-extrabold flex items-center justify-center text-xs">
                 {user?.first_name?.[0] || 'U'}
               </div>
@@ -236,7 +237,7 @@ const DashboardLayout = () => {
                   {user?.locality ? `${user.locality}, Chennai` : 'Chennai, Tamil Nadu'}
                 </p>
               </div>
-            </div>
+            </Link>
           </div>
         </header>
 

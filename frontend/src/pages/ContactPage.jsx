@@ -35,8 +35,8 @@ const ContactPage = () => {
               <div className="flex items-start gap-3 p-3 rounded-xl bg-red-50 border border-red-100">
                 <Phone className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
                 <div>
-                  <div className="font-bold text-red-950">National Blood Helpline</div>
-                  <div className="text-red-700">Toll-Free: 104 / 108 (24x7 Ambulance & Emergency)</div>
+                  <div className="font-bold text-red-950">24/7 Emergency Blood Helpline</div>
+                  <div className="text-red-700">Phone: 9884245552 (24x7 Ambulance & Emergency)</div>
                 </div>
               </div>
               <div className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
@@ -64,13 +64,13 @@ const ContactPage = () => {
           </div>
 
           <div className="p-6 rounded-3xl bg-slate-900 text-white space-y-3 text-xs">
-            <h3 className="font-bold text-sm text-white">Academic Capstone Inquiry</h3>
+            <h3 className="font-bold text-sm text-white">Hospital & Community Inquiries</h3>
             <p className="text-slate-400 leading-relaxed">
-              For evaluation queries by examiners, feedback on design thinking artifacts, or architecture reviews:
+              For hospital blood centre integration, voluntary blood drive coordination, or network technical support:
             </p>
             <div className="flex items-center gap-2 text-slate-300">
               <Mail className="w-4 h-4 text-red-400" />
-              <span>team@bloodconnect.org</span>
+              <span>contact@bloodconnect.org</span>
             </div>
           </div>
         </div>
@@ -84,7 +84,7 @@ const ContactPage = () => {
               </div>
               <h3 className="text-lg font-bold text-slate-900">Inquiry Received</h3>
               <p className="text-xs text-slate-500 max-w-sm mx-auto">
-                Thank you for reaching out. In our prototype simulation, student coordinators monitor all messages logged in the database.
+                Thank you for reaching out. A coordinator from the Chennai Emergency Coordination Team will review your message shortly.
               </p>
               <button
                 onClick={() => setSubmitted(false)}

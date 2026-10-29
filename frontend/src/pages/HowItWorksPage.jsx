@@ -126,17 +126,25 @@ const HowItWorksPage = () => {
       </div>
 
       {/* CTA Box */}
-      <div className="p-8 rounded-2xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div className="p-8 rounded-3xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-6">
         <div>
-          <h3 className="text-lg font-bold text-white">Ready to test the live demonstration?</h3>
-          <p className="text-xs text-slate-400 mt-1">Use the Demo Switcher at the top right to switch between roles anytime.</p>
+          <h3 className="text-lg font-bold text-white">Join Chennai's Emergency Life-Saving Network</h3>
+          <p className="text-xs text-slate-400 mt-1">Whether you need urgent blood for a loved one or want to donate voluntarily, register in under two minutes.</p>
         </div>
-        <Link
-          to="/login"
-          className="px-6 py-3 rounded-xl bg-red-600 text-white text-xs font-bold hover:bg-red-700 transition shrink-0"
-        >
-          Sign In to Portal
-        </Link>
+        <div className="flex items-center gap-3 shrink-0">
+          <Link
+            to="/register"
+            className="px-6 py-3 rounded-xl bg-red-600 text-white text-xs font-bold hover:bg-red-700 transition"
+          >
+            Register Now
+          </Link>
+          <Link
+            to="/login"
+            className="px-6 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs font-bold hover:bg-slate-700 transition"
+          >
+            Sign In
+          </Link>
+        </div>
       </div>
     </div>
   );

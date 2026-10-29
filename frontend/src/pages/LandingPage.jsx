@@ -19,7 +19,8 @@ import {
   CheckCircle2,
   Sparkles,
   PhoneCall,
-  Clock
+  Clock,
+  LogIn
 } from 'lucide-react';
 
 const LandingPage = () => {
@@ -86,9 +87,9 @@ const LandingPage = () => {
             <div className="lg:col-span-7 space-y-5 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-100/90 border border-red-200 text-red-900 text-xs font-semibold">
                 <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
-                <span>Chennai Emergency Blood Coordination Prototype</span>
+                <span>Chennai Emergency Blood Coordination Network</span>
                 <span className="hidden sm:inline text-red-400">&bull;</span>
-                <span className="hidden sm:inline text-red-800 font-medium">Design Thinking Assessment</span>
+                <span className="hidden sm:inline text-red-800 font-medium">24/7 Rapid Response Network</span>
               </div>
 
               <h1 className="text-3xl sm:text-5xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.15]">
@@ -118,9 +119,16 @@ const LandingPage = () => {
                   <Heart className="w-4 h-4 text-red-400" />
                   <span>Become a Donor</span>
                 </Link>
+                <Link
+                  to="/login"
+                  className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white border border-slate-300 text-slate-800 font-bold text-sm hover:border-red-500 hover:text-red-600 hover:bg-red-50/50 transition shadow-xs shrink-0"
+                >
+                  <LogIn className="w-4 h-4 text-red-600" />
+                  <span>Sign In to Portal</span>
+                </Link>
                 <a
                   href="#stock-overview"
-                  className="flex items-center gap-2 px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50 transition shrink-0"
+                  className="flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-100 text-slate-700 font-semibold text-sm hover:bg-slate-200 transition shrink-0"
                 >
                   <Search className="w-4 h-4 text-slate-500" />
                   <span>Chennai Blood Stocks</span>
@@ -414,15 +422,15 @@ const LandingPage = () => {
       <section id="stock-overview" className="max-w-[1650px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6 scroll-mt-24">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-100 text-amber-900 text-[11px] font-bold mb-1.5">
-              <AlertCircle className="w-3.5 h-3.5 text-amber-600" />
-              <span>Chennai Demonstration Environment &bull; Sample Inventory</span>
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-900 text-[11px] font-bold mb-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+              <span>Chennai Regional Network &bull; Live Inventory</span>
             </div>
             <h2 className="text-2xl font-extrabold text-slate-900">
               Chennai Regional Blood Centre Stock Reserves
             </h2>
             <p className="text-xs text-slate-500">
-              Live database queries of sample blood bank inventories across monitored facilities in Chennai, Tamil Nadu.
+              Live database queries of blood bank reserves across verified facilities in Chennai, Tamil Nadu.
             </p>
           </div>
 
@@ -518,12 +526,12 @@ const LandingPage = () => {
           )}
         </div>
 
-        {/* Interactive OpenStreetMap of Chennai Blood Banks */}
+        {/* Interactive Map of Chennai Blood Banks */}
         <div className="space-y-2 pt-2">
           <div className="flex items-center justify-between">
             <h3 className="font-bold text-sm text-slate-900 flex items-center gap-2">
               <Building2 className="w-4 h-4 text-red-600" />
-              <span>Monitored Chennai Blood Banks Map (OpenStreetMap & Leaflet)</span>
+              <span>Monitored Chennai Blood Banks Map</span>
             </h3>
             <span className="text-xs text-slate-500">Center: Chennai (13.0600, 80.2400)</span>
           </div>
