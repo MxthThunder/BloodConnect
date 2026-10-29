@@ -7,6 +7,7 @@ from blood_requests.models import BloodRequest, RequestStatus
 from notifications.models import Notification, NotificationType
 from audit.models import AuditLog
 from accounts.permissions import IsAdminUserRole
+from escalation import hooks as escalation_hooks
 
 
 class RequestMatchesListView(generics.ListAPIView):
@@ -67,6 +68,7 @@ class DonorAlertDetailView(views.APIView):
         if match.alert_status == AlertStatus.DISPATCHED:
             match.alert_status = AlertStatus.VIEWED
             match.save()
+            escalation_hooks.on_donor_viewed(match)
 
         serializer = DonorMatchSerializer(match, context={'request': request})
         return Response(serializer.data)
@@ -100,6 +102,8 @@ class DonorAlertResponseView(views.APIView):
         match.save()
 
         req = match.blood_request
+        # Feed the response into the escalation engine (recalculates the remaining need, may trigger a batch)
+        escalation_hooks.on_donor_response(match, resp, msg)
 
         if resp == 'ACCEPTED':
             # Update blood request status if not already fulfilled or closed

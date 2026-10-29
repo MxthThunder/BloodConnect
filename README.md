@@ -4,12 +4,14 @@
 [![React](https://img.shields.io/badge/Frontend-React%2019%20%7C%20Vite-61dafb?logo=react)](https://react.dev/)
 [![TailwindCSS](https://img.shields.io/badge/Styling-Tailwind%20CSS%20v4-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/Automated%20Tests-15%20Passed%20(100%25)-brightgreen)](manage.py)
+[![Tests](https://img.shields.io/badge/Automated%20Tests-113%20Passed-brightgreen)](backend/manage.py)
 [![Localization](https://img.shields.io/badge/Region-Chennai%2C%20Tamil%20Nadu-red.svg)](https://en.wikipedia.org/wiki/Chennai)
 
 > **College Design Thinking Capstone Project**  
 > Developed by a team of six Computer Science Engineering students for external academic examination.  
 > **Team Members:** Freddy Matthew R, Joshua Bennet C, Boopathi P R, Balakumaran E, Abilash Alexander A, Harisankaran J.
+
+> **BloodConnect 2.0 - Adaptive Emergency Escalation Engine.** The app now tracks every response after the first alert, recalculates the remaining need, and widens the search when warranted, with a command center, simulator, strategy comparison and explainable decisions. See [docs/BLOODCONNECT_2.md](docs/BLOODCONNECT_2.md).
 
 ---
 
@@ -189,7 +191,7 @@ python manage.py migrate
 # Seed Chennai demonstration database (Safe & idempotent: will not create duplicates)
 python manage.py seed_data
 
-# Run automated tests (15 unit & integration tests)
+# Run automated tests (116: 15 original + 101 escalation tests)
 python manage.py test
 
 # Start Django development server

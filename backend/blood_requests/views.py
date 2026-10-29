@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from rest_framework import status, views, permissions, generics
 from rest_framework.response import Response
 from django.utils import timezone
@@ -9,6 +11,9 @@ from .serializers import (
     BloodRequestVerifySerializer
 )
 from matching.services import run_donor_matching
+from escalation import hooks as escalation_hooks
+from escalation.models import EmergencyCase
+from escalation.service import EscalationError, service as escalation_service, validate_request_for_escalation
 from notifications.models import Notification, NotificationType
 from audit.models import AuditLog
 from accounts.permissions import IsAdminUserRole
@@ -103,6 +108,8 @@ class BloodRequestCancelView(views.APIView):
 
         req.request_status = RequestStatus.CANCELLED
         req.save()
+        # Stop any further outreach / escalation for this request
+        escalation_hooks.on_request_cancelled(req, request.user)
 
         AuditLog.record(
             actor=request.user,
@@ -137,6 +144,13 @@ class BloodRequestVerifyView(views.APIView):
         notes = serializer.validated_data.get('notes', '')
 
         if action == 'APPROVE':
+            problems = validate_request_for_escalation(req)
+            grace = escalation_service.policy_for_new().expiry_grace_minutes
+            if req.required_by and req.required_by + timedelta(minutes=grace) <= timezone.now():
+                problems.append('The required time for this request has already passed.')
+            if problems:
+                return Response({'error': 'Request cannot be approved: ' + ' '.join(problems)},
+                                status=status.HTTP_400_BAD_REQUEST)
             req.verification_status = VerificationStatus.APPROVED
             req.request_status = RequestStatus.ACTIVE_ALERTS_SENT
             req.verified_by = request.user
@@ -144,8 +158,9 @@ class BloodRequestVerifyView(views.APIView):
             req.verification_notes = notes
             req.save()
 
-            # Run matching engine and dispatch alerts to suitable donors
-            matches = run_donor_matching(req)
+            # Start adaptive coordination: rank candidates and alert the initial batch only
+            case = escalation_service.start_case_for_request(req, actor=request.user)
+            matches = list(case.attempts.all())
 
             # Notify requester
             Notification.objects.create(
@@ -155,7 +170,8 @@ class BloodRequestVerifyView(views.APIView):
                 message=(
                     f"Your emergency request for {req.units_requested} unit(s) of {req.blood_group} at "
                     f"{req.hospital_name} has been verified by the administrator. "
-                    f"Emergency alerts have been dispatched to {len(matches)} potential matching donors."
+                    f"Emergency alerts have been sent to {len(matches)} potential donors in the initial search area; "
+                    f"the search widens automatically if more volunteers are needed."
                 ),
                 notification_type=NotificationType.STATUS_UPDATE,
                 urgency=req.urgency,
@@ -172,8 +188,10 @@ class BloodRequestVerifyView(views.APIView):
             )
 
             return Response({
-                'message': f'Blood request approved. {len(matches)} potential donor matches identified and alerted.',
+                'message': f'Blood request approved. {len(matches)} potential donors alerted in the initial search '
+                           f'stage; adaptive escalation will widen the search if more volunteers are needed.',
                 'matches_count': len(matches),
+                'escalation_case_id': case.id,
                 'request': BloodRequestDetailSerializer(req).data
             })
 
@@ -227,6 +245,7 @@ class BloodRequestFulfillView(views.APIView):
         req.request_status = RequestStatus.FULFILLED
         req.fulfillment_notes = notes
         req.save()
+        escalation_hooks.on_request_changed(req)
 
         Notification.objects.create(
             recipient=req.requester,
@@ -261,7 +280,20 @@ class BloodRequestRematchView(views.APIView):
         except BloodRequest.DoesNotExist:
             return Response({'error': 'Blood request not found'}, status=status.HTTP_404_NOT_FOUND)
 
-        matches = run_donor_matching(req)
+        if req.verification_status == VerificationStatus.APPROVED and req.request_status not in [
+                RequestStatus.CANCELLED, RequestStatus.CLOSED, RequestStatus.FULFILLED]:
+            # Approved requests go through the escalation engine as an administrator-approved evaluation.
+            try:
+                case = escalation_service.start_case_for_request(req, actor=request.user)
+                if case.is_terminal:
+                    return Response({'error': f'Coordination is {case.get_status_display().lower()}; no new alerts.'},
+                                    status=status.HTTP_400_BAD_REQUEST)
+                escalation_service.approve_escalation(case.pk, actor=request.user)
+            except EscalationError as exc:
+                return Response({'error': exc.message}, status=status.HTTP_400_BAD_REQUEST)
+            matches = list(EmergencyCase.objects.get(pk=case.pk).attempts.all())
+        else:
+            matches = run_donor_matching(req)
         AuditLog.record(
             actor=request.user,
             action='REMATCH_BLOOD_REQUEST',

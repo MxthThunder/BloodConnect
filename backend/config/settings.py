@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'notifications',
     'audit',
     'dashboard',
+    'escalation',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -78,6 +79,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        # IMMEDIATE takes the write lock at transaction start, so concurrent responses queue
+        # instead of failing halfway through a read-then-write sequence.
+        'OPTIONS': {'transaction_mode': 'IMMEDIATE', 'timeout': 20},
+        # A real file (not shared-cache memory) so the threaded concurrency tests behave like production SQLite
+        'TEST': {'NAME': BASE_DIR / 'test_db.sqlite3'},
     }
 }
 

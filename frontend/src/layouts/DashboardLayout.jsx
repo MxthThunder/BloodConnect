@@ -18,6 +18,11 @@ import {
   AlertTriangle,
   ScrollText,
   Network,
+  Radio,
+  FlaskConical,
+  BarChart3,
+  Settings2,
+  Route as RouteIcon,
   LogOut,
   Menu,
   X,
@@ -41,11 +46,21 @@ const DashboardLayout = () => {
     if (role === 'admin') {
       return [
         {
+          title: 'Emergency Coordination',
+          items: [
+            { label: 'Emergency Command Center', path: '/admin-portal/command-center', icon: Radio },
+            { label: 'Outreach & Escalation', path: '/admin-portal/outreach', icon: RouteIcon, matchPrefix: true },
+            { label: 'Emergency Simulator', path: '/admin-portal/simulator', icon: FlaskConical },
+            { label: 'Strategy Comparison', path: '/admin-portal/strategy-comparison', icon: BarChart3 },
+            { label: 'Admin Settings', path: '/admin-portal/escalation-settings', icon: Settings2 },
+          ]
+        },
+        {
           title: 'Emergency Operations',
           items: [
             { label: 'Admin Overview', path: '/admin-portal/dashboard', icon: LayoutDashboard },
             { label: 'Verification Queue', path: '/admin-portal/verification-queue', icon: ShieldCheck, badge: 'Urgent' },
-            { label: 'All Requests', path: '/admin-portal/requests', icon: FileText },
+            { label: 'Blood Requests', path: '/admin-portal/requests', icon: FileText },
             { label: 'Matching Engine', path: '/admin-portal/matching', icon: Network },
           ]
         },
@@ -54,7 +69,7 @@ const DashboardLayout = () => {
           items: [
             { label: 'Blood Bank Stock', path: '/admin-portal/stock', icon: Building2 },
             { label: 'Low-Stock Alerts', path: '/admin-portal/low-stock', icon: AlertTriangle, badgeColor: 'red' },
-            { label: 'Donor Registry', path: '/admin-portal/donors', icon: Heart },
+            { label: 'Donors', path: '/admin-portal/donors', icon: Heart },
             { label: 'User Management', path: '/admin-portal/users', icon: Users },
           ]
         },
@@ -134,7 +149,7 @@ const DashboardLayout = () => {
                 {sec.title}
               </p>
               {sec.items.map((item) => {
-                const active = location.pathname === item.path;
+                const active = item.matchPrefix ? location.pathname.startsWith(item.path) : location.pathname === item.path;
                 const Icon = item.icon;
                 return (
                   <Link

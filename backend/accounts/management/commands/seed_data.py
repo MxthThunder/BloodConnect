@@ -733,6 +733,13 @@ class Command(BaseCommand):
             )
             created_requests.append(req)
 
+            # Keep still-open demo requests live when the seed is re-run on an older database
+            if (not created and req.required_by < now and req.request_status in (
+                    RequestStatus.PENDING_VERIFICATION, RequestStatus.ACTIVE_ALERTS_SENT,
+                    RequestStatus.DONOR_RESPONDED, RequestStatus.MATCHING)):
+                req.required_by = r_data['req_by']
+                req.save(update_fields=['required_by', 'updated_at'])
+
             # If request is approved/matching, automatically execute donor matching
             if req.verification_status == VerificationStatus.APPROVED:
                 matches = run_donor_matching(req)
@@ -821,6 +828,10 @@ class Command(BaseCommand):
                 'details': 'System initialized with 6 team admin accounts, 32 Chennai donors across 15 localities, 8 regional blood banks, and 12 emergency requests.'
             }
         )
+
+        # Bring the already-approved seed requests under the adaptive escalation engine
+        from django.core.management import call_command
+        call_command('seed_escalation', stdout=self.stdout)
 
         self.stdout.write(self.style.SUCCESS("\n==> BloodConnect Chennai Seed Data Initialized Successfully!"))
         self.stdout.write(self.style.SUCCESS("=================================================================="))

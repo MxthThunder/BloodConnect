@@ -1,19 +1,49 @@
 @import "tailwindcss";
 
+/*
+  Restrained healthcare palette: warm off-white surfaces, deep burgundy accents, charcoal text.
+  Re-mapping the existing red/slate ramps re-themes every existing page without touching it.
+*/
+@theme {
+  --color-red-50: #fbf3f4;
+  --color-red-100: #f5e1e4;
+  --color-red-200: #e9c3c9;
+  --color-red-300: #d99aa5;
+  --color-red-400: #c06577;
+  --color-red-500: #a13a52;
+  --color-red-600: #8a2338;
+  --color-red-700: #721b2e;
+  --color-red-800: #5c1625;
+  --color-red-900: #46111c;
+  --color-rose-600: #8a2338;
+
+  --color-slate-50: #faf7f4;
+  --color-slate-100: #f3eeea;
+  --color-slate-200: #e6dfd9;
+  --color-slate-300: #d3c9c1;
+  --color-slate-900: #26211f;
+  --color-slate-800: #342d2a;
+}
+
 @layer base {
   :root {
-    --brand-primary: #dc2626;
-    --brand-dark: #991b1b;
-    --navy-dark: #0f172a;
-    --surface-bg: #f8fafc;
+    --brand-primary: #8a2338;
+    --brand-dark: #5c1625;
+    --navy-dark: #26211f;
+    --surface-bg: #faf7f4;
   }
 
   body {
-    background-color: #f8fafc;
-    color: #1e293b;
+    background-color: #faf7f4;
+    color: #2a2523;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  :focus-visible {
+    outline: 2px solid #8a2338;
+    outline-offset: 2px;
   }
 }
 
@@ -24,16 +54,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #f3eeea;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #cfc4bb;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #a99d94;
 }
 
 /* Leaflet map styles */
@@ -42,4 +72,15 @@
   height: 100%;
   border-radius: 0.75rem;
   z-index: 10;
+}
+
+/* Keeps visually-hidden (position:absolute) table headings inside the scroll container on small screens */
+.overflow-x-auto {
+  position: relative;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse {
+    animation: none;
+  }
 }

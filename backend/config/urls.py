@@ -17,6 +17,7 @@ def api_root(request):
             'notifications': '/api/notifications/',
             'audit': '/api/audit/',
             'dashboard': '/api/dashboard/',
+            'escalation': '/api/escalation/',
         }
     })
 
@@ -32,4 +33,5 @@ urlpatterns = [
     path('api/notifications/', include('notifications.urls')),
     path('api/audit/', include('audit.urls')),
     path('api/dashboard/', include('dashboard.urls')),
+    path('api/escalation/', include('escalation.urls')),
 ]

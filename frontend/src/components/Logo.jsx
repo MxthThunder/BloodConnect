@@ -27,7 +27,7 @@ const Logo = ({ className = '', size = 'md', to = '/' }) => {
       </div>
 
       <div className="flex flex-col leading-none">
-        <span className={`text-slate-900 font-extrabold ${textSizes[size]}`}>
+        <span className={`${className.includes('text-white') ? 'text-white' : 'text-slate-900'} font-extrabold ${textSizes[size]}`}>
           Blood<span className="text-red-600">Connect</span>
         </span>
         {size !== 'sm' && (

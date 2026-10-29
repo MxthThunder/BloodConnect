@@ -43,6 +43,11 @@ import BloodBankStockPage from '../pages/admin/BloodBankStockPage';
 import LowStockAlertsPage from '../pages/admin/LowStockAlertsPage';
 import NotificationManagementPage from '../pages/admin/NotificationManagementPage';
 import AuditLogsPage from '../pages/admin/AuditLogsPage';
+import CommandCenterPage from '../pages/admin/CommandCenterPage';
+import OutreachEscalationPage from '../pages/admin/OutreachEscalationPage';
+import SimulatorPage from '../pages/admin/SimulatorPage';
+import StrategyComparisonPage from '../pages/admin/StrategyComparisonPage';
+import EscalationSettingsPage from '../pages/admin/EscalationSettingsPage';
 
 // Protected Route Guard
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -129,6 +134,12 @@ const AppRoutes = () => {
         }
       >
         <Route path="dashboard" element={<AdminDashboard />} />
+        <Route path="command-center" element={<CommandCenterPage />} />
+        <Route path="outreach" element={<OutreachEscalationPage />} />
+        <Route path="outreach/:caseId" element={<OutreachEscalationPage />} />
+        <Route path="simulator" element={<SimulatorPage />} />
+        <Route path="strategy-comparison" element={<StrategyComparisonPage />} />
+        <Route path="escalation-settings" element={<EscalationSettingsPage />} />
         <Route path="verification-queue" element={<VerificationQueuePage />} />
         <Route path="requests" element={<RequestManagementPage />} />
         <Route path="donors" element={<DonorManagementPage />} />
