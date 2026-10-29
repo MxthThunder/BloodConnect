@@ -13,6 +13,7 @@ const PublicLayout = () => {
     if (!user) return '/login';
     if (user.role === 'admin') return '/admin-portal/dashboard';
     if (user.role === 'donor') return '/donor/dashboard';
+    if (user.role === 'organiser') return '/organiser/dashboard';
     return '/requester/dashboard';
   };
 
@@ -20,6 +21,7 @@ const PublicLayout = () => {
     { label: 'Home', path: '/' },
     { label: 'How It Works', path: '/how-it-works' },
     { label: 'Blood Awareness', path: '/awareness' },
+    { label: 'Donation Camps', path: '/camps' },
     { label: 'About BloodConnect', path: '/about' },
     { label: 'Contact & Help', path: '/contact' },
   ];
@@ -66,14 +68,14 @@ const PublicLayout = () => {
           </nav>
 
           {/* Right actions */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
             {isAuthenticated ? (
               <div className="flex items-center gap-2">
                 <Link
                   to={getDashboardPath()}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 text-white text-xs sm:text-sm font-semibold hover:bg-slate-800 transition shadow-sm"
+                  className="inline-flex items-center gap-1.5 px-2.5 sm:px-3.5 py-2 rounded-xl bg-slate-900 text-white text-xs sm:text-sm font-semibold hover:bg-slate-800 transition shadow-sm"
                 >
-                  <span>Dashboard ({user?.role})</span>
+                  <span>Dashboard<span className="hidden sm:inline"> ({user?.role})</span></span>
                   <ArrowRight className="w-3.5 h-3.5 text-red-400" />
                 </Link>
                 <button
@@ -90,17 +92,17 @@ const PublicLayout = () => {
               <div className="flex items-center gap-2">
                 <Link
                   to="/login"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-700 hover:text-red-600 hover:bg-red-50/50 transition border border-slate-200 sm:border-transparent"
+                  className="inline-flex items-center gap-1.5 px-2.5 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-700 hover:text-red-600 hover:bg-red-50/50 transition border border-slate-200 sm:border-transparent"
                 >
                   <LogIn className="w-3.5 h-3.5 text-red-600" />
                   <span>Sign In</span>
                 </Link>
                 <Link
                   to="/register"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-red-600 text-white text-xs sm:text-sm font-semibold hover:bg-red-700 transition shadow-sm shadow-red-600/20"
+                  className="inline-flex items-center gap-1.5 px-2.5 sm:px-3.5 py-2 rounded-xl bg-red-600 text-white text-xs sm:text-sm font-semibold hover:bg-red-700 transition shadow-sm shadow-red-600/20"
                 >
                   <Heart className="w-3.5 h-3.5 fill-white" />
-                  <span>Join Network</span>
+                  <span><span className="sm:hidden">Join</span><span className="hidden sm:inline">Join Network</span></span>
                 </Link>
               </div>
             )}
@@ -108,7 +110,8 @@ const PublicLayout = () => {
             {/* Mobile menu button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100"
+              className="lg:hidden p-1.5 sm:p-2 rounded-lg text-slate-600 hover:bg-slate-100"
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>

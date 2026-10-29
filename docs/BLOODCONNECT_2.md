@@ -134,7 +134,7 @@ If your database was seeded long ago, re-run `seed_data`: it refreshes `required
 
 ```powershell
 cd backend
-python manage.py test                 # everything (116)
+python manage.py test                 # everything (175, incl. 59 for donation camps)
 python manage.py test escalation      # new suite (101)
 ```
 Covers: valid/invalid emergency creation; eligibility and consent exclusion; accept/decline; decline vs no-response;

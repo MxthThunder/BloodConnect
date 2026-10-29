@@ -49,6 +49,17 @@ import SimulatorPage from '../pages/admin/SimulatorPage';
 import StrategyComparisonPage from '../pages/admin/StrategyComparisonPage';
 import EscalationSettingsPage from '../pages/admin/EscalationSettingsPage';
 
+// Donation camps
+import CampsPage from '../pages/camps/CampsPage';
+import CampDetailPage from '../pages/camps/CampDetailPage';
+
+// Organiser Pages
+import OrganiserDashboard from '../pages/organiser/OrganiserDashboard';
+import ApplyCampPage from '../pages/organiser/ApplyCampPage';
+import ApplicationDetailPage from '../pages/organiser/ApplicationDetailPage';
+import CampApplicationsPage from '../pages/admin/CampApplicationsPage';
+import CampApplicationDetailPage from '../pages/admin/CampApplicationDetailPage';
+
 // Protected Route Guard
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { isAuthenticated, role, isLoading } = useAuth();
@@ -69,6 +80,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
     // Redirect to user's authorized portal
     if (role === 'admin') return <Navigate to="/admin-portal/dashboard" replace />;
     if (role === 'donor') return <Navigate to="/donor/dashboard" replace />;
+    if (role === 'organiser') return <Navigate to="/organiser/dashboard" replace />;
     return <Navigate to="/requester/dashboard" replace />;
   }
 
@@ -87,6 +99,24 @@ const AppRoutes = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/camps" element={<CampsPage base="/camps" />} />
+        <Route path="/camps/:id" element={<CampDetailPage base="/camps" />} />
+      </Route>
+
+      {/* Camp Organiser Portal */}
+      <Route
+        path="/organiser"
+        element={
+          <ProtectedRoute allowedRoles={['organiser']}>
+            <DashboardLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="dashboard" element={<OrganiserDashboard />} />
+        <Route path="apply" element={<ApplyCampPage />} />
+        <Route path="applications/:id" element={<ApplicationDetailPage />} />
+        <Route path="applications/:id/edit" element={<ApplyCampPage />} />
+        <Route path="notifications" element={<RequesterNotificationsPage />} />
       </Route>
 
       {/* Requester Portal */}
@@ -105,6 +135,8 @@ const AppRoutes = () => {
         <Route path="requests/:id/matches" element={<RequestMatchesPage />} />
         <Route path="notifications" element={<RequesterNotificationsPage />} />
         <Route path="profile" element={<RequesterProfilePage />} />
+        <Route path="camps" element={<CampsPage base="/requester/camps" />} />
+        <Route path="camps/:id" element={<CampDetailPage base="/requester/camps" />} />
       </Route>
 
       {/* Donor Portal */}
@@ -122,6 +154,8 @@ const AppRoutes = () => {
         <Route path="alerts/:id" element={<DonorAlertDetailPage />} />
         <Route path="history" element={<DonorHistoryPage />} />
         <Route path="notifications" element={<DonorNotificationsPage />} />
+        <Route path="camps" element={<CampsPage base="/donor/camps" />} />
+        <Route path="camps/:id" element={<CampDetailPage base="/donor/camps" />} />
       </Route>
 
       {/* Administrator Portal */}
@@ -148,6 +182,8 @@ const AppRoutes = () => {
         <Route path="stock" element={<BloodBankStockPage />} />
         <Route path="low-stock" element={<LowStockAlertsPage />} />
         <Route path="notifications" element={<NotificationManagementPage />} />
+        <Route path="camps" element={<CampApplicationsPage />} />
+        <Route path="camps/:id" element={<CampApplicationDetailPage />} />
         <Route path="audit-logs" element={<AuditLogsPage />} />
       </Route>
 

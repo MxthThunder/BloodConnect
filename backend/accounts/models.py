@@ -6,6 +6,7 @@ class UserRole(models.TextChoices):
     REQUESTER = 'requester', 'Requester'
     DONOR = 'donor', 'Donor'
     ADMIN = 'admin', 'Administrator'
+    ORGANISER = 'organiser', 'Camp Organiser'
 
 
 class User(AbstractUser):
@@ -39,6 +40,10 @@ class User(AbstractUser):
     @property
     def is_donor_role(self):
         return self.role == UserRole.DONOR
+
+    @property
+    def is_organiser_role(self):
+        return self.role == UserRole.ORGANISER
 
     @property
     def is_requester_role(self):

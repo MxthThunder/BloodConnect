@@ -3,11 +3,12 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Logo from '../components/Logo';
 import { CHENNAI_LOCALITIES } from '../constants/chennaiData';
-import { Heart, User, CheckCircle2, AlertCircle, ArrowRight } from 'lucide-react';
+import { Heart, User, CalendarDays, CheckCircle2, AlertCircle, ArrowRight } from 'lucide-react';
 
 const RegisterPage = () => {
   const [searchParams] = useSearchParams();
-  const initialRole = searchParams.get('role') === 'donor' ? 'donor' : 'requester';
+  const roleParam = searchParams.get('role');
+  const initialRole = ['donor', 'organiser'].includes(roleParam) ? roleParam : 'requester';
   const [role, setRole] = useState(initialRole);
 
   const [formData, setFormData] = useState({
@@ -30,8 +31,9 @@ const RegisterPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (searchParams.get('role')) {
-      setRole(searchParams.get('role'));
+    const param = searchParams.get('role');
+    if (['donor', 'organiser', 'requester'].includes(param)) {
+      setRole(param);
     }
   }, [searchParams]);
 
@@ -64,6 +66,8 @@ const RegisterPage = () => {
     if (res.success) {
       if (role === 'donor') {
         navigate('/donor/dashboard');
+      } else if (role === 'organiser') {
+        navigate('/organiser/dashboard');
       } else {
         navigate('/requester/dashboard');
       }
@@ -82,14 +86,14 @@ const RegisterPage = () => {
           Join the BloodConnect Network
         </h2>
         <p className="text-xs text-slate-500">
-          Create your account as a blood requester or voluntary emergency donor
+          Create your account as a blood requester, a voluntary donor, or a donation camp organiser
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-xl">
         <div className="bg-white py-8 px-6 shadow-xl shadow-slate-200/50 sm:rounded-3xl sm:px-10 border border-slate-200 space-y-6">
           {/* Role Selection Tabs */}
-          <div className="grid grid-cols-2 p-1.5 rounded-2xl bg-slate-100 border border-slate-200">
+          <div className="grid grid-cols-3 gap-1 p-1.5 rounded-2xl bg-slate-100 border border-slate-200">
             <button
               type="button"
               onClick={() => setRole('requester')}
@@ -100,7 +104,7 @@ const RegisterPage = () => {
               }`}
             >
               <User className="w-4 h-4 text-blue-600" />
-              <span>I Need Blood (Requester)</span>
+              <span>Need Blood</span>
             </button>
             <button
               type="button"
@@ -112,7 +116,19 @@ const RegisterPage = () => {
               }`}
             >
               <Heart className="w-4 h-4 text-red-600" />
-              <span>I Want to Donate (Donor)</span>
+              <span>Donate Blood</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setRole('organiser')}
+              className={`flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold transition ${
+                role === 'organiser'
+                  ? 'bg-white text-slate-900 shadow-sm'
+                  : 'text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              <CalendarDays className="w-4 h-4 text-emerald-700" />
+              <span>Organise a Camp</span>
             </button>
           </div>
 

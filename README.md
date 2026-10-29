@@ -4,7 +4,7 @@
 [![React](https://img.shields.io/badge/Frontend-React%2019%20%7C%20Vite-61dafb?logo=react)](https://react.dev/)
 [![TailwindCSS](https://img.shields.io/badge/Styling-Tailwind%20CSS%20v4-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/Automated%20Tests-113%20Passed-brightgreen)](backend/manage.py)
+[![Tests](https://img.shields.io/badge/Automated%20Tests-175%20Passed-brightgreen)](backend/manage.py)
 [![Localization](https://img.shields.io/badge/Region-Chennai%2C%20Tamil%20Nadu-red.svg)](https://en.wikipedia.org/wiki/Chennai)
 
 > **College Design Thinking Capstone Project**  
@@ -12,6 +12,8 @@
 > **Team Members:** Freddy Matthew R, Joshua Bennet C, Boopathi P R, Balakumaran E, Abilash Alexander A, Harisankaran J.
 
 > **BloodConnect 2.0 - Adaptive Emergency Escalation Engine.** The app now tracks every response after the first alert, recalculates the remaining need, and widens the search when warranted, with a command center, simulator, strategy comparison and explainable decisions. See [docs/BLOODCONNECT_2.md](docs/BLOODCONNECT_2.md).
+>
+> **Blood donation camps.** The public can find approved camps by locality on a list and map and register interest; colleges, companies and NGOs apply to hold camps and are tracked through review, medical-partner coordination, approval and completion. See [docs/DONATION_CAMPS.md](docs/DONATION_CAMPS.md).
 
 ---
 
@@ -191,7 +193,7 @@ python manage.py migrate
 # Seed Chennai demonstration database (Safe & idempotent: will not create duplicates)
 python manage.py seed_data
 
-# Run automated tests (116: 15 original + 101 escalation tests)
+# Run automated tests (175: 15 original + 101 escalation + 59 donation camp tests)
 python manage.py test
 
 # Start Django development server

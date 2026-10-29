@@ -832,6 +832,7 @@ class Command(BaseCommand):
         # Bring the already-approved seed requests under the adaptive escalation engine
         from django.core.management import call_command
         call_command('seed_escalation', stdout=self.stdout)
+        call_command('seed_camps', stdout=self.stdout)
 
         self.stdout.write(self.style.SUCCESS("\n==> BloodConnect Chennai Seed Data Initialized Successfully!"))
         self.stdout.write(self.style.SUCCESS("=================================================================="))

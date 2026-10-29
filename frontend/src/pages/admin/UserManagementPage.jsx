@@ -83,6 +83,7 @@ const UserManagementPage = () => {
           <option value="">All Account Roles</option>
           <option value="requester">Requesters</option>
           <option value="donor">Donors</option>
+          <option value="organiser">Camp Organisers</option>
           <option value="admin">Administrators</option>
         </select>
       </div>

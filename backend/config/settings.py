@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'audit',
     'dashboard',
     'escalation',
+    'camps',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'

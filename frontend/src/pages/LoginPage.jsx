@@ -40,6 +40,8 @@ const LoginPage = () => {
       navigate('/admin-portal/dashboard');
     } else if (role === 'donor') {
       navigate('/donor/dashboard');
+    } else if (role === 'organiser') {
+      navigate('/organiser/dashboard');
     } else {
       navigate('/requester/dashboard');
     }

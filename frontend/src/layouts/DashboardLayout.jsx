@@ -27,7 +27,9 @@ import {
   Menu,
   X,
   ChevronRight,
-  Activity
+  Activity,
+  CalendarDays,
+  ClipboardList
 } from 'lucide-react';
 
 const DashboardLayout = () => {
@@ -74,6 +76,13 @@ const DashboardLayout = () => {
           ]
         },
         {
+          title: 'Community Camps',
+          items: [
+            { label: 'Camp Applications', path: '/admin-portal/camps', icon: ClipboardList, matchPrefix: true },
+            { label: 'Public Camp Listing', path: '/camps', icon: CalendarDays },
+          ]
+        },
+        {
           title: 'Governance',
           items: [
             { label: 'Platform Alerts', path: '/admin-portal/notifications', icon: Bell },
@@ -91,8 +100,23 @@ const DashboardLayout = () => {
             { label: 'Donor Dashboard', path: '/donor/dashboard', icon: LayoutDashboard },
             { label: 'Emergency Alerts', path: '/donor/notifications', icon: Bell },
             { label: 'Relevant Requests', path: '/donor/requests', icon: Activity },
+            { label: 'Donation Camps', path: '/donor/camps', icon: CalendarDays, matchPrefix: true },
             { label: 'Donation History', path: '/donor/history', icon: History },
             { label: 'Profile & Availability', path: '/donor/profile', icon: User },
+          ]
+        }
+      ];
+    }
+
+    if (role === 'organiser') {
+      return [
+        {
+          title: 'Camp Organiser',
+          items: [
+            { label: 'Organiser Dashboard', path: '/organiser/dashboard', icon: LayoutDashboard },
+            { label: 'Apply to Hold a Camp', path: '/organiser/apply', icon: PlusCircle, highlight: true },
+            { label: 'Public Camp Listing', path: '/camps', icon: CalendarDays },
+            { label: 'Notifications', path: '/organiser/notifications', icon: Bell },
           ]
         }
       ];
@@ -106,6 +130,7 @@ const DashboardLayout = () => {
           { label: 'Requester Dashboard', path: '/requester/dashboard', icon: LayoutDashboard },
           { label: 'Create Blood Request', path: '/requester/create-request', icon: PlusCircle, highlight: true },
           { label: 'My Blood Requests', path: '/requester/my-requests', icon: FileText },
+          { label: 'Donation Camps', path: '/requester/camps', icon: CalendarDays, matchPrefix: true },
           { label: 'In-App Notifications', path: '/requester/notifications', icon: Bell },
           { label: 'Account Profile', path: '/requester/profile', icon: User },
         ]
@@ -118,13 +143,13 @@ const DashboardLayout = () => {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row antialiased text-slate-800">
       {/* Sidebar for Desktop */}
-      <aside className="hidden md:flex flex-col w-64 bg-slate-900 text-slate-300 border-r border-slate-800 shrink-0">
-        <div className="p-5 border-b border-slate-800/80 flex items-center justify-between">
+      <aside className="hidden md:flex flex-col w-64 bg-slate-900 text-slate-300 border-r border-slate-800 shrink-0 sticky top-0 h-screen self-start">
+        <div className="p-5 border-b border-slate-800/80 flex items-center justify-between shrink-0">
           <Logo size="sm" to="/" className="text-white" />
         </div>
 
         {/* User Card */}
-        <div className="p-4 mx-3 my-3 rounded-xl bg-slate-800/60 border border-slate-700/50 flex items-center gap-3">
+        <div className="p-4 mx-3 my-3 rounded-xl bg-slate-800/60 border border-slate-700/50 flex items-center gap-3 shrink-0">
           <div className="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center font-bold text-white text-sm shrink-0 shadow-xs">
             {user?.first_name?.[0] || user?.email?.[0]?.toUpperCase() || 'U'}
           </div>
@@ -142,7 +167,7 @@ const DashboardLayout = () => {
         </div>
 
         {/* Navigation Sections */}
-        <div className="flex-1 overflow-y-auto px-3 py-2 space-y-6">
+        <div className="flex-1 min-h-0 overflow-y-auto px-3 py-2 space-y-6">
           {navSections.map((sec, idx) => (
             <div key={idx} className="space-y-1">
               <p className="px-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">
@@ -180,7 +205,7 @@ const DashboardLayout = () => {
         </div>
 
         {/* Footer logout */}
-        <div className="p-3 border-t border-slate-800/80 space-y-1">
+        <div className="p-3 border-t border-slate-800/80 space-y-1 shrink-0">
           <Link
             to="/"
             className="flex items-center gap-2 px-3 py-2 text-xs text-slate-400 hover:text-slate-200 rounded-lg hover:bg-slate-800/50 transition"
@@ -222,7 +247,7 @@ const DashboardLayout = () => {
 
             {/* User Profile Avatar Link */}
             <Link
-              to={role === 'donor' ? '/donor/profile' : role === 'requester' ? '/requester/profile' : '/admin-portal/dashboard'}
+              to={role === 'donor' ? '/donor/profile' : role === 'requester' ? '/requester/profile' : role === 'organiser' ? '/organiser/dashboard' : '/admin-portal/dashboard'}
               className="flex items-center gap-2 pl-2 border-l border-slate-200 hover:opacity-80 transition cursor-pointer"
               title="View and edit account profile"
             >
@@ -279,6 +304,14 @@ const DashboardLayout = () => {
             </div>
 
             <div className="pt-3 border-t border-slate-800">
+              <Link
+                to="/"
+                onClick={() => setMobileSidebarOpen(false)}
+                className="flex items-center gap-2 text-xs text-slate-400 w-full px-2 py-2"
+              >
+                <span>Public Site Overview</span>
+                <ChevronRight className="w-3.5 h-3.5 ml-auto" />
+              </Link>
               <button onClick={handleLogout} className="flex items-center gap-2 text-xs text-rose-400 w-full px-2 py-2">
                 <LogOut className="w-4 h-4" />
                 <span>Sign Out</span>

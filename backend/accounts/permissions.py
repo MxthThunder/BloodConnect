@@ -38,6 +38,27 @@ class IsRequesterUserRole(permissions.BasePermission):
         )
 
 
+class IsOrganiserUserRole(permissions.BasePermission):
+    """
+    Allows access to authenticated camp organisers only (administrators use their own endpoints).
+    """
+    def has_permission(self, request, view):
+        return bool(
+            request.user and
+            request.user.is_authenticated and
+            request.user.role == UserRole.ORGANISER
+        )
+
+
+class IsOrganiserOrAdmin(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return bool(
+            request.user and
+            request.user.is_authenticated and
+            (request.user.role in (UserRole.ORGANISER, UserRole.ADMIN) or request.user.is_superuser)
+        )
+
+
 class IsOwnerOrAdmin(permissions.BasePermission):
     """
     Object-level permission to allow only owners of an object or admins to view/edit it.

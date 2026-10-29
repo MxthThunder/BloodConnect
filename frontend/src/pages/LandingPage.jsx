@@ -4,6 +4,7 @@ import apiClient from '../api/client';
 import BloodGroupBadge from '../components/BloodGroupBadge';
 import ClinicalDisclaimer from '../components/ClinicalDisclaimer';
 import StockMap from '../components/StockMap';
+import { REGIONAL_HOSPITALS } from '../constants/regionalHospitals';
 import { CHENNAI_LOCALITIES } from '../constants/chennaiData';
 import {
   Heart,
@@ -531,11 +532,11 @@ const LandingPage = () => {
           <div className="flex items-center justify-between">
             <h3 className="font-bold text-sm text-slate-900 flex items-center gap-2">
               <Building2 className="w-4 h-4 text-red-600" />
-              <span>Monitored Chennai Blood Banks Map</span>
+              <span>Blood Banks and Hospitals In and Around Chennai</span>
             </h3>
-            <span className="text-xs text-slate-500">Center: Chennai (13.0600, 80.2400)</span>
+            <span className="text-xs text-slate-500">Greater Chennai and surrounding towns</span>
           </div>
-          <StockMap bloodBanks={bloodBanks} height="360px" />
+          <StockMap bloodBanks={bloodBanks} hospitals={REGIONAL_HOSPITALS} height="440px" />
         </div>
       </section>
 

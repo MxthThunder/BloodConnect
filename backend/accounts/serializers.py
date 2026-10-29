@@ -52,7 +52,10 @@ class RegisterSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True, min_length=6)
     first_name = serializers.CharField(max_length=150)
     last_name = serializers.CharField(max_length=150, required=False, allow_blank=True)
-    role = serializers.ChoiceField(choices=UserRole.choices, default=UserRole.REQUESTER)
+    # Administrators are never self-registered: they are created by seed/management commands or the Django admin.
+    role = serializers.ChoiceField(
+        choices=[c for c in UserRole.choices if c[0] != UserRole.ADMIN], default=UserRole.REQUESTER
+    )
     phone = serializers.CharField(max_length=20, required=False, allow_blank=True)
     city = serializers.CharField(max_length=100)
     locality = serializers.CharField(max_length=100)
