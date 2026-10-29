@@ -127,7 +127,7 @@ python manage.py evaluate_escalations --loop --interval 30
 # frontend
 cd frontend ; npm install ; npm run dev     # http://127.0.0.1:5173
 ```
-Sign in with any team admin (e.g. `freddy.admin@bloodconnect.org` / `Admin@1234`, or the Demo Switcher).
+Sign in with any team admin (e.g. `freddy.admin@bloodconnect.org` / `Admin@1234`, or any account in `ACCOUNTS_CREDENTIALS.md`).
 If your database was seeded long ago, re-run `seed_data`: it refreshes `required_by` of still-open demo requests.
 
 ## 6. Tests
@@ -150,7 +150,7 @@ pre-existing register -> request -> approve -> respond flow; pure decision rules
 2. Expand a candidate row: score breakdown and plain-language reason. Press *Accept* on one (records a phone response);
    the remaining need drops from 4 to 3, the status stays "collecting responses", the timeline gains an event.
 3. Ask **Decision support** "Why is this request still unresolved?" and "Why did the system prioritise these candidates?".
-4. Log in as a donor from the Demo Switcher, open the alert, accept; return as admin and watch it flow in.
+4. Sign out and log in as a donor (e.g. `donor.o_neg@bloodconnect.org`), open the alert, accept; return as admin and watch it flow in.
 5. **Emergency Simulator** -> "No response in the initial area" -> Create -> Start. Watch batch 1 go quiet, the response
    window elapse (status *unknown*, not declined), then the escalation and search-area expansion events. Try Pause/Step/Reset
    and the other four scenarios. All data is fictional and nothing is sent.

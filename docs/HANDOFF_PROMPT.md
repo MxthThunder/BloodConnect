@@ -156,8 +156,9 @@ cd backend ; python manage.py test   # 116 tests
 python manage.py evaluate_escalations --loop --interval 30   # optional background evaluator (no built-in scheduler)
 ```
 Admin login: `freddy.admin@bloodconnect.org` / `Admin@1234` (five more team admins use the same password; see
-`seed_data.py`). Requesters use `Requester@1234`, e.g. `requester@bloodconnect.org`. The Demo Switcher in the UI can
-switch roles.
+`seed_data.py`). Requesters use `Requester@1234`, e.g. `requester@bloodconnect.org`; donors use `Donor@1234`, e.g.
+`donor.o_neg@bloodconnect.org`. The header Demo Switcher was removed by a teammate commit (`5851c33`), so switch roles by
+logging out and in.
 
 ---
 
